@@ -70,4 +70,4 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:leizhilong/leizhilong.github.io.git
-  branch: gh-pages
+  branch: master
