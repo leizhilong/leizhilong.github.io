@@ -1,13 +1,6 @@
 ---
-title: Blog Categories
-date: 2017-04-26 23:06:58
+title: Categories
+date: 2017-04-27 08:02:02
+type: "categories"
+comments: false
 ---
-
-## Docker
-
-## Kubernetes
-
-## Go-Lang
-
-## Misc
-* [Hexo Test Drive](/2017/04/26/hexo-test-drive)

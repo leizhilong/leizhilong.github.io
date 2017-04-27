@@ -1,6 +1,7 @@
 ---
 title: Hexo Test Drive
 date: 2017-04-26 21:46:19
+categories: Frontend
 tags: 
   - Hexo
   - NexT
