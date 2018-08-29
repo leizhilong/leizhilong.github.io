@@ -55,9 +55,127 @@
   <span class="post-date">Wed, Aug 29, 2018</span>
   
 
-<h2 id="hello-hugo">Hello Hugo</h2>
+<h1 id="hello-hugo">Hello Hugo</h1>
 
-<p>Change my blog to hugo and this is my first post using hugo.</p>
+<p>I have changed my blog to a <a href="https://gohugo.io">hugo</a> site and this is my first post using hugo.</p>
+
+<h2 id="hugo-introduction">Hugo Introduction</h2>
+
+<p><a href="https://gohugo.io/">Hugo</a> is a fast and modern static site generator written in Go, and I use it to build my blog. Here are some steps to build your own blog pages with Github Pages and Hugo, and it&rsquo;s fast and all free.</p>
+
+<h3 id="create-two-projects-on-github">Create two projects on Github</h3>
+
+<ul>
+<li>Blog source, assuming <code>github.com/&lt;username&gt;/blog</code></li>
+<li>Generated blog static pages, assuming <code>github.com/&lt;username&gt;.github.io</code></li>
+</ul>
+
+<p>Initialize <code>github.com/&lt;username&gt;.github.io</code> with a README.md or anything else you like, while the source blog repo can be left empty.</p>
+
+<h2 id="install-hugo">Install hugo</h2>
+
+<p>Check docs on <a href="https://gohugo.io/getting-started/installing/">Hugo doc site</a></p>
+
+<h3 id="build-a-new-hugo-site">Build a new hugo site</h3>
+
+<pre><code class="language-bash">## new blog site
+hugo new site blog
+cd blog
+</code></pre>
+
+<h3 id="commit-blog-site-into-source-repo">Commit blog site into source repo</h3>
+
+<pre><code class="language-base">git init
+git add .
+git commit -m &quot;first commit&quot;
+git remote add origin git@github.com:&lt;username&gt;/blog.git
+git push -u origin master
+</code></pre>
+
+<h3 id="add-a-theme-to-your-blog">Add a theme to your blog</h3>
+
+<pre><code class="language-base">git init;
+git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke;
+
+# Edit your config.toml configuration file
+# and add the Ananke theme.
+echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml
+</code></pre>
+
+<p>To find more themes, go <a href="http://themes.gohugo.io/">http://themes.gohugo.io/</a></p>
+
+<h3 id="add-some-content-and-preview-it">Add some content and preview it</h3>
+
+<pre><code class="language-base">hugo new posts/my-first-post.md
+</code></pre>
+
+<p>New post is configurated as draft in meta data block, change it to <code>false</code> when you finish editing and decide to publish it.</p>
+
+<pre><code class="language-yaml">---
+title: &quot;About&quot;
+date: 2017-08-29T18:05:29+08:00
+draft: true
+---
+</code></pre>
+
+<p>Start a local draft server to preview it at <a href="http://localhost:1313/">http://localhost:1313/</a></p>
+
+<pre><code class="language-bash">hugo server -D
+</code></pre>
+
+<p>The flag <code>-D</code> enable hugo to render draft pages.</p>
+
+<h3 id="host-hugo-blog-site-on-github">Host hugo blog site on GitHub</h3>
+
+<ul>
+<li>Remove your <code>public</code> directory in you blog source repo</li>
+</ul>
+
+<pre><code class="language-bash">rm -rf public
+</code></pre>
+
+<ul>
+<li>Use your generated static blog repo as a submodule of the source repo</li>
+</ul>
+
+<pre><code class="language-bash">git submodule add -b master git@github.com:&lt;usename&gt;/&lt;username&gt;.github.io.git public.
+</code></pre>
+
+<ul>
+<li>Using a deploy script to publish your generated pages</li>
+</ul>
+
+<p>Save script as <code>deploy.sh</code> in your source repo and run it to publish.</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# Build the project.
+hugo # if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add .
+
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back up to the Project Root
+cd ..
+</code></pre>
+
+<h3 id="done">DONE</h3>
+
+<p>Now you can try to access your blog at <code>https://&lt;usename&gt;.github.io</code></p>
 
 </div>
 
