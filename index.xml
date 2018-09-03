@@ -33,10 +33,10 @@ Create two projects on Github  Blog source, assuming github.</description>
     
     <item>
       <title>Hexo Test Drive</title>
-      <link>https://leizhilong.github.io/posts/2017-04-26-hexo-test-drive/</link>
+      <link>https://leizhilong.github.io/posts/hexo-test-drive/</link>
       <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/2017-04-26-hexo-test-drive/</guid>
+      <guid>https://leizhilong.github.io/posts/hexo-test-drive/</guid>
       <description>Introduction Hexo is an alternative of jekyll to create static blog pages from markdown on Github Pages. Implemented with nodejs, Hexo is quite easy to use compared with jekyll. Using Hexo and a theme named &amp;ldquo;NexT&amp;rdquo;, I am here now to demonstrate how to create a pretty nice blog site on Github Pages within just a few minutes.
 Prerequisites To begin with, you&amp;rsquo;ll need: * node * git * a github account</description>
     </item>
