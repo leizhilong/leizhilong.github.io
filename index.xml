@@ -6,10 +6,19 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Aug 2018 17:38:11 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Sep 2018 18:00:31 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gVisor VS Kata Container</title>
+      <link>https://leizhilong.github.io/posts/gvisor-vs-kata/</link>
+      <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/posts/gvisor-vs-kata/</guid>
+      <description>Kata Container  Full Kernel Lets system calls go through freely Performance penalty due to the VM layer. Not clear yet how slower or faster than gVisor On paper, slower startup time. Can run in nested virtualized environments if the hypervisor and hardware support it.  gVisor  Partial Kernel Intercepts syscalls Performance penalty at runtime due to syscall filtering. Not clear how slower or faster than Kata yet. On paper, faster startup time.</description>
+    </item>
     
     <item>
       <title>First Post Using Hugo</title>
