@@ -6,10 +6,23 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Sep 2018 18:00:31 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Sep 2018 14:06:54 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8s Reliability doc from kubespray</title>
+      <link>https://leizhilong.github.io/posts/k8s-reliability/</link>
+      <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/posts/k8s-reliability/</guid>
+      <description>Reference https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md
+Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
+To have a simple view the most of parts of HA will be skipped to describe Kubelet&amp;lt;-&amp;gt;Controller Manager communication only.
+By default the normal behavior looks like:
+ Kubelet updates it status to apiserver periodically, as specified by --node-status-update-frequency. The default value is 10s.</description>
+    </item>
     
     <item>
       <title>gVisor VS Kata Container</title>
