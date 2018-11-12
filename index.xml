@@ -6,10 +6,19 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Sep 2018 14:06:54 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 12 Nov 2018 10:44:52 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Case Study: Swapoff Cannot Allocate Memory</title>
+      <link>https://leizhilong.github.io/posts/case-study-swapoff-cannot-allocate-memory/</link>
+      <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/posts/case-study-swapoff-cannot-allocate-memory/</guid>
+      <description>Description On some of our CentOS Linux nodes, we use Zabbix to monitor host resources. Sometimes, Zabbix reports system swap space high usage when the used size is larger then 50% of its total space, which indicates there may not be sufficient RAM. After cleaning up some unused tasks, available memory reaches up to 90GB+ according to the result of free -h command while the total swap space is only 10GB.</description>
+    </item>
     
     <item>
       <title>K8s Reliability doc from kubespray</title>

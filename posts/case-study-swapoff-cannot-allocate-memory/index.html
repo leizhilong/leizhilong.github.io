@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="//gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.51" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Case Study: Swapoff Cannot Allocate Memory &middot; Lei Zhilong&#39;s Blog</title>
+
+  
+  <link type="text/css" rel="stylesheet" href="https://leizhilong.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://leizhilong.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://leizhilong.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://leizhilong.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Lei Zhilong&#39;s Blog" />
+
+  
+</head>
+
+  <body class=" layout-reverse">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://leizhilong.github.io/"><h1>Lei Zhilong&#39;s Blog</h1></a>
+      <p class="lead">
+       Just some notes 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://leizhilong.github.io/">Home</a> </li>
+        <li><a href="/about"> About </a></li>
+      </ul>
+    </nav>
+
+    <p>All Rights Reserved © 2018</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Case Study: Swapoff Cannot Allocate Memory</h1>
+  <span class="post-date">Mon, Nov 12, 2018</span>
+  
+
+<h2 id="description">Description</h2>
+
+<p>On some of our CentOS Linux nodes, we use Zabbix to monitor host resources. Sometimes, Zabbix reports system swap space high usage when the used size is larger then 50% of its total space, which indicates there may not be sufficient RAM. After cleaning up some unused tasks, available memory reaches up to 90GB+ according to the result of <code>free -h</code> command while the total swap space is only 10GB.  However, when I try to clean up the swap space by using <code>swapoff /dev/dm-1 &amp;&amp; swapon /dev/dm-1</code>, I still get this error:</p>
+
+<pre><code class="language-bash">swapoff: /dev/dm-1: swapoff failed: Cannot allocate memory
+
+</code></pre>
+
+<p>It seems that swap space cannot be switched off when it is in use even though enough RAM is provided.</p>
+
+<h2 id="analyze">Analyze</h2>
+
+<p>When I looked this issue up online, some said swapoff fails because the amount of swap file being used is bigger than what can fit in the RAM. Clearly, sufficient RAM does not guarantee that swapoff can be performed successfully.</p>
+
+<p>Also, there are some answers to this issue saying that enable memory over-committing may be able to solve this.</p>
+
+<pre><code class="language-bash">sysctl -w vm.overcommit_memory=1
+</code></pre>
+
+<p>Well, that didn&rsquo;t work for my situation either.</p>
+
+<p>There are several notions that are only loosely related.</p>
+
+<ul>
+<li>Physical memory usage</li>
+<li>Swap area usage</li>
+<li>Virtual memory reservation</li>
+<li>Virtual memory allocation</li>
+</ul>
+
+<p>When a process allocated memory (malloc or similar), what it does is actually reserving memory. By default, Linux over-commits virtual memory so doesn&rsquo;t care that much about reservation and generally return successfully.</p>
+
+<p>When you access reserved memory for the first time, this memory has to be backed by pages located either on RAM or on disk.</p>
+
+<p>If there is not enough RAM to hold all the accessed virtual memory on RAM, the system starts to paginate (what is usually called swapping) and the performance stalls.</p>
+
+<p>If processes reserve more memory than the sum of the swap area and (part of the) RAM, and your system is configured not to over-commit memory, the allocation fails. This can happen even while you have plenty of RAM free and are not using any pages on the swap area. This is the price to pay to have a system that doesn&rsquo;t randomly kills applications.</p>
+
+<p>In that case, even thought I have enough free virtual memory but a part of it is reserved so demand some swap area to be present which means I cannot remove the latter.</p>
+
+<p>I guess one likely practical solution would be create another swap space and use it to exchange the old one temporarily.</p>
+
+<h2 id="solution">Solution</h2>
+
+<ol>
+<li><p>Check swap status</p>
+
+<pre><code class="language-bash">swapon -s
+Filename                                Type                 Size         Used     Priority
+/dev/dm-1                              partition            3145724       1524700    -1
+</code></pre></li>
+
+<li><p>Create a file  using <code>dd</code> as a temporary swap space</p>
+
+<pre><code class="language-bash">dd if=/dev/zero of=/home/swap bs=1024 count=512000
+
+512000+0 records in
+512000+0 records out
+524288000 bytes (524 MB) copied, 1.2637 s, 415 MB/s
+
+mkswap /home/swap
+mkswap: /home/swap: warning: don't erase bootbits sectors
+        on whole disk. Use -f to force.
+Setting up swapspace version 1, size = 511996 KiB
+no label, UUID=155bb4be-29cb-4e95-9581-24e11be6188f
+</code></pre></li>
+
+<li><p><code>swapon</code> the temporary swap file and check out free memory.</p>
+
+<pre><code class="language-bash"># this would take a few minutes.
+swapon /home/swap
+
+free -m
+                    total       used       free     shared    buffers     cached
+Mem:                 3832       3550       282          0          4        166
+-/+ buffers/cache:   3378       453
+Swap:                3571       1495       2076
+</code></pre></li>
+
+<li><p><code>swapoff</code> the swap device which should be cleaned up and <code>swapon</code> it again after that</p>
+
+<pre><code class="language-bash">
+# a few more minutes depending on you swap size
+swapoff /dev/dm-1
+
+free -m
+                    total       used       free     shared    buffers     cached
+Mem:                 3832       3711        120          0          2         19
+-/+ buffers/cache:   3689       143
+Swap:                499        499          0
+
+swapon /dev/dm-1
+free -m
+                    total       used       free     shared    buffers     cached
+Mem:                3832       3717        114          0          1        25
+-/+ buffers/cache:  3691       140
+Swap:               3571       495         3076
+</code></pre></li>
+
+<li><p><code>swapoff</code> the temporary swap file and remove it from you disk.</p>
+
+<pre><code class="language-bash">swapoff /home/swap
+free -m
+                    total       used       free     shared    buffers     cached
+Mem:                3832       3725        106          0          0              15
+-/+ buffers/cache:  3710       122
+Swap:               3071       476         2595
+
+rm -f /home/swap
+</code></pre></li>
+</ol>
+
+<h1 id="reference">Reference</h1>
+
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/89514/swapoff-fails-when-overcommit-memory-2">https://unix.stackexchange.com/questions/89514/swapoff-fails-when-overcommit-memory-2</a></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+  </body>
+</html>
