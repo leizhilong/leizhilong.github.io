@@ -3,22 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://leizhilong.github.io/posts/case-study-swapoff-cannot-allocate-memory/</loc>
+    <loc>https://leizhilong.github.io/blog/2018-11-12-case-study-swapoff-cannot-allocate-memory/</loc>
     <lastmod>2018-11-12T10:44:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/posts/k8s-reliability/</loc>
+    <loc>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</loc>
     <lastmod>2018-09-06T14:06:54+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/posts/gvisor-vs-kata/</loc>
+    <loc>https://leizhilong.github.io/blog/2018-09-04-gvisor-vs-kata-container/</loc>
     <lastmod>2018-09-04T18:00:31+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/posts/my-first-post/</loc>
+    <loc>https://leizhilong.github.io/blog/2018-08-29-first-post-using-hugo/</loc>
     <lastmod>2018-08-29T17:38:11+08:00</lastmod>
   </url>
   
@@ -28,12 +28,29 @@
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/posts/hexo-test-drive/</loc>
+    <loc>https://leizhilong.github.io/page/about/</loc>
+    <lastmod>2017-08-29T18:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</loc>
     <lastmod>2017-04-26T21:46:19+00:00</lastmod>
   </url>
   
   <url>
+    <loc>https://leizhilong.github.io/tags/case/</loc>
+    <lastmod>2018-11-12T10:44:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://leizhilong.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/categories/container/</loc>
+    <lastmod>2018-09-04T18:00:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -44,8 +61,14 @@
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/tags/github-pages/</loc>
-    <lastmod>2017-04-26T21:46:19+00:00</lastmod>
+    <loc>https://leizhilong.github.io/categories/go/</loc>
+    <lastmod>2018-09-06T14:06:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/tags/gvisor/</loc>
+    <lastmod>2018-09-04T18:00:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -56,26 +79,74 @@
   </url>
   
   <url>
+    <loc>https://leizhilong.github.io/tags/hugo/</loc>
+    <lastmod>2018-08-29T17:38:11+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/tags/kata/</loc>
+    <lastmod>2018-09-04T18:00:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/tags/kubernetes/</loc>
+    <lastmod>2018-09-06T14:06:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/categories/kubernetes/</loc>
+    <lastmod>2018-09-06T14:06:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://leizhilong.github.io/</loc>
     <lastmod>2018-11-12T10:44:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/tags/next/</loc>
-    <lastmod>2017-04-26T21:46:19+00:00</lastmod>
+    <loc>https://leizhilong.github.io/tags/linux/</loc>
+    <lastmod>2018-11-12T10:44:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/posts/</loc>
+    <loc>https://leizhilong.github.io/categories/linux/</loc>
+    <lastmod>2018-11-12T10:44:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/page/</loc>
+    <lastmod>2017-08-29T18:05:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/post/</loc>
+    <lastmod>2018-11-12T10:44:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/tags/reliability/</loc>
+    <lastmod>2018-09-06T14:06:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/tags/swap/</loc>
     <lastmod>2018-11-12T10:44:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://leizhilong.github.io/tags/</loc>
-    <lastmod>2017-04-26T21:46:19+00:00</lastmod>
+    <lastmod>2018-11-12T10:44:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   

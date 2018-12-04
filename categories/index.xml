@@ -11,11 +11,47 @@
     
     
     <item>
+      <title>Container</title>
+      <link>https://leizhilong.github.io/categories/container/</link>
+      <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/categories/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Frontend</title>
       <link>https://leizhilong.github.io/categories/frontend/</link>
       <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
       
       <guid>https://leizhilong.github.io/categories/frontend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://leizhilong.github.io/categories/go/</link>
+      <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://leizhilong.github.io/categories/kubernetes/</link>
+      <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/categories/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://leizhilong.github.io/categories/linux/</link>
+      <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/categories/linux/</guid>
       <description></description>
     </item>
     

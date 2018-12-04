@@ -13,19 +13,19 @@
     
     <item>
       <title>Case Study: Swapoff Cannot Allocate Memory</title>
-      <link>https://leizhilong.github.io/posts/case-study-swapoff-cannot-allocate-memory/</link>
+      <link>https://leizhilong.github.io/blog/2018-11-12-case-study-swapoff-cannot-allocate-memory/</link>
       <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/case-study-swapoff-cannot-allocate-memory/</guid>
+      <guid>https://leizhilong.github.io/blog/2018-11-12-case-study-swapoff-cannot-allocate-memory/</guid>
       <description>Description On some of our CentOS Linux nodes, we use Zabbix to monitor host resources. Sometimes, Zabbix reports system swap space high usage when the used size is larger then 50% of its total space, which indicates there may not be sufficient RAM. After cleaning up some unused tasks, available memory reaches up to 90GB+ according to the result of free -h command while the total swap space is only 10GB.</description>
     </item>
     
     <item>
       <title>K8s Reliability doc from kubespray</title>
-      <link>https://leizhilong.github.io/posts/k8s-reliability/</link>
+      <link>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</link>
       <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/k8s-reliability/</guid>
+      <guid>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</guid>
       <description>Reference https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md
 Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
 To have a simple view the most of parts of HA will be skipped to describe Kubelet&amp;lt;-&amp;gt;Controller Manager communication only.
@@ -35,19 +35,19 @@ By default the normal behavior looks like:
     
     <item>
       <title>gVisor VS Kata Container</title>
-      <link>https://leizhilong.github.io/posts/gvisor-vs-kata/</link>
+      <link>https://leizhilong.github.io/blog/2018-09-04-gvisor-vs-kata-container/</link>
       <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/gvisor-vs-kata/</guid>
+      <guid>https://leizhilong.github.io/blog/2018-09-04-gvisor-vs-kata-container/</guid>
       <description>Kata Container  Full Kernel Lets system calls go through freely Performance penalty due to the VM layer. Not clear yet how slower or faster than gVisor On paper, slower startup time. Can run in nested virtualized environments if the hypervisor and hardware support it.  gVisor  Partial Kernel Intercepts syscalls Performance penalty at runtime due to syscall filtering. Not clear how slower or faster than Kata yet. On paper, faster startup time.</description>
     </item>
     
     <item>
       <title>First Post Using Hugo</title>
-      <link>https://leizhilong.github.io/posts/my-first-post/</link>
+      <link>https://leizhilong.github.io/blog/2018-08-29-first-post-using-hugo/</link>
       <pubDate>Wed, 29 Aug 2018 17:38:11 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/my-first-post/</guid>
+      <guid>https://leizhilong.github.io/blog/2018-08-29-first-post-using-hugo/</guid>
       <description>Hello Hugo I have changed my blog to a hugo site and this is my first post using hugo.
 Hugo Introduction Hugo is a fast and modern static site generator written in Go, and I use it to build my blog. Here are some steps to build your own blog pages with Github Pages and Hugo, and it&amp;rsquo;s fast and all free.
 Create two projects on Github  Blog source, assuming github.</description>
@@ -63,11 +63,20 @@ Create two projects on Github  Blog source, assuming github.</description>
     </item>
     
     <item>
+      <title>About</title>
+      <link>https://leizhilong.github.io/page/about/</link>
+      <pubDate>Tue, 29 Aug 2017 18:05:29 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/page/about/</guid>
+      <description>囧 Just some kind of nerd/geek/tech guy&amp;hellip;</description>
+    </item>
+    
+    <item>
       <title>Hexo Test Drive</title>
-      <link>https://leizhilong.github.io/posts/hexo-test-drive/</link>
+      <link>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</link>
       <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
       
-      <guid>https://leizhilong.github.io/posts/hexo-test-drive/</guid>
+      <guid>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</guid>
       <description>Introduction Hexo is an alternative of jekyll to create static blog pages from markdown on Github Pages. Implemented with nodejs, Hexo is quite easy to use compared with jekyll. Using Hexo and a theme named &amp;ldquo;NexT&amp;rdquo;, I am here now to demonstrate how to create a pretty nice blog site on Github Pages within just a few minutes.
 Prerequisites To begin with, you&amp;rsquo;ll need: * node * git * a github account</description>
     </item>

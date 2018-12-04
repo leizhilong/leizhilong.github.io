@@ -6,17 +6,26 @@
     <description>Recent content in Tags on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Apr 2017 21:46:19 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 12 Nov 2018 10:44:52 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Github Pages</title>
-      <link>https://leizhilong.github.io/tags/github-pages/</link>
-      <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
+      <title>Case</title>
+      <link>https://leizhilong.github.io/tags/case/</link>
+      <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/tags/github-pages/</guid>
+      <guid>https://leizhilong.github.io/tags/case/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gvisor</title>
+      <link>https://leizhilong.github.io/tags/gvisor/</link>
+      <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/gvisor/</guid>
       <description></description>
     </item>
     
@@ -30,11 +39,56 @@
     </item>
     
     <item>
-      <title>Next</title>
-      <link>https://leizhilong.github.io/tags/next/</link>
-      <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
+      <title>Hugo</title>
+      <link>https://leizhilong.github.io/tags/hugo/</link>
+      <pubDate>Wed, 29 Aug 2018 17:38:11 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/tags/next/</guid>
+      <guid>https://leizhilong.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kata</title>
+      <link>https://leizhilong.github.io/tags/kata/</link>
+      <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/kata/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://leizhilong.github.io/tags/kubernetes/</link>
+      <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://leizhilong.github.io/tags/linux/</link>
+      <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reliability</title>
+      <link>https://leizhilong.github.io/tags/reliability/</link>
+      <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/reliability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Swap</title>
+      <link>https://leizhilong.github.io/tags/swap/</link>
+      <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/tags/swap/</guid>
       <description></description>
     </item>
     
