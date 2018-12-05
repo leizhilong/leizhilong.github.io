@@ -26,8 +26,7 @@
       <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
       
       <guid>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</guid>
-      <description>Reference https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md
-Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
+      <description>Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
 To have a simple view the most of parts of HA will be skipped to describe Kubelet&amp;lt;-&amp;gt;Controller Manager communication only.
 By default the normal behavior looks like:
  Kubelet updates it status to apiserver periodically, as specified by --node-status-update-frequency. The default value is 10s.</description>
@@ -59,15 +58,6 @@ Create two projects on Github  Blog source, assuming github.</description>
       <pubDate>Tue, 29 Aug 2017 18:05:29 +0800</pubDate>
       
       <guid>https://leizhilong.github.io/about/</guid>
-      <description>囧 Just some kind of nerd/geek/tech guy&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://leizhilong.github.io/page/about/</link>
-      <pubDate>Tue, 29 Aug 2017 18:05:29 +0800</pubDate>
-      
-      <guid>https://leizhilong.github.io/page/about/</guid>
       <description>囧 Just some kind of nerd/geek/tech guy&amp;hellip;</description>
     </item>
     

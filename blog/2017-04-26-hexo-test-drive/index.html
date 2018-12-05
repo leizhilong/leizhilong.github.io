@@ -82,7 +82,11 @@ Prerequisites To begin with, you&rsquo;ll need: * node * git * a github account"
       
         <option value="https://leizhilong.github.io/about/">» About Me</option>
       
-        <option value="https://leizhilong.github.io/post/">» Blog</option>
+        <option value="https://leizhilong.github.io/post/">» Posts</option>
+      
+        <option value="https://leizhilong.github.io/categories/">» Categories</option>
+      
+        <option value="https://leizhilong.github.io/tags/">» Tags</option>
       
   </select>
 </fieldset>
@@ -92,11 +96,19 @@ Prerequisites To begin with, you&rsquo;ll need: * node * git * a github account"
   
   
     
-      <li><a href="https://leizhilong.github.io/about/" title="About Me"  target="_blank" >About Me</a></li>
+      <li><a href="https://leizhilong.github.io/about/" title="About Me" >About Me</a></li>
     
   
     
-      <li><a href="https://leizhilong.github.io/post/" title="Blog"  target="_blank" >Blog</a></li>
+      <li><a href="https://leizhilong.github.io/post/" title="Posts" >Posts</a></li>
+    
+  
+    
+      <li><a href="https://leizhilong.github.io/categories/" title="Categories" >Categories</a></li>
+    
+  
+    
+      <li><a href="https://leizhilong.github.io/tags/" title="Tags" >Tags</a></li>
     
   
 </ul>
@@ -195,14 +207,29 @@ Prerequisites To begin with, you&rsquo;ll need: * node * git * a github account"
 <h2 id="step-by-step">Step By Step</h2>
 
 <h3 id="1-install-hexo">1. install hexo</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+
+
+
+
+
+<figure class="code">
+  <figcaption>
+  	<span>hexo-cli install</span>
+  </figcaption>
+  <div class="codewrapper">
+    <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g hexo-cli</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install -g hexo-cli
+<span style="color:#bd93f9">1</span></code></pre></td></tr></table>
 </div>
 </div>
+  </div>
+</figure>
+
 <h3 id="2-create-git-repository">2. create git repository</h3>
 
 <p>Create a git repository with the name bellow:</p>
@@ -305,14 +332,10 @@ wget https://github.com/iissnan/hexo-theme-next/archive/v5.1.1.zip
 </ol>
 
 <h3 id="6-deploy-to-github-pages">6. deploy to Github Pages</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hexo clean <span style="color:#ff79c6">&amp;&amp;</span> hexo generate <span style="color:#ff79c6">&amp;&amp;</span> hexo deploy</code></pre></td></tr></table>
-</div>
-</div>
+
+<pre><code>hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+</code></pre>
+
 <h3 id="7-submit-your-source-code">7. submit your source code</h3>
 
 <p>Remember to submit your code to git repository in a different branch.</p>
@@ -503,12 +526,6 @@ wget https://github.com/iissnan/hexo-theme-next/archive/v5.1.1.zip
             
               <li class="post">
                 <a href="/blog/2018-09-06-k8s-reliability-doc-from-kubespray/">K8s Reliability doc from kubespray</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018-09-04-gvisor-vs-kata-container/">gVisor VS Kata Container</a>
               </li>
             
           

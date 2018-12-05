@@ -55,8 +55,7 @@
   
   
   <meta name="twitter:title" content="K8s Reliability doc from kubespray"/>
-  <meta name="twitter:description" content="Reference https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md
-Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
+  <meta name="twitter:description" content="Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
 To have a simple view the most of parts of HA will be skipped to describe Kubelet&lt;-&gt;Controller Manager communication only.
 By default the normal behavior looks like:
  Kubelet updates it status to apiserver periodically, as specified by --node-status-update-frequency. The default value is 10s."/>
@@ -85,7 +84,11 @@ By default the normal behavior looks like:
       
         <option value="https://leizhilong.github.io/about/">» About Me</option>
       
-        <option value="https://leizhilong.github.io/post/">» Blog</option>
+        <option value="https://leizhilong.github.io/post/">» Posts</option>
+      
+        <option value="https://leizhilong.github.io/categories/">» Categories</option>
+      
+        <option value="https://leizhilong.github.io/tags/">» Tags</option>
       
   </select>
 </fieldset>
@@ -95,11 +98,19 @@ By default the normal behavior looks like:
   
   
     
-      <li><a href="https://leizhilong.github.io/about/" title="About Me"  target="_blank" >About Me</a></li>
+      <li><a href="https://leizhilong.github.io/about/" title="About Me" >About Me</a></li>
     
   
     
-      <li><a href="https://leizhilong.github.io/post/" title="Blog"  target="_blank" >Blog</a></li>
+      <li><a href="https://leizhilong.github.io/post/" title="Posts" >Posts</a></li>
+    
+  
+    
+      <li><a href="https://leizhilong.github.io/categories/" title="Categories" >Categories</a></li>
+    
+  
+    
+      <li><a href="https://leizhilong.github.io/tags/" title="Tags" >Tags</a></li>
     
   
 </ul>
@@ -153,7 +164,6 @@ By default the normal behavior looks like:
           
             <nav id="TableOfContents">
 <ul>
-<li><a href="#reference">Reference</a></li>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#failure">Failure</a></li>
 <li><a href="#recommendations-for-different-cases">Recommendations for different cases</a>
@@ -162,14 +172,11 @@ By default the normal behavior looks like:
 <li><a href="#medium-update-and-average-reaction">Medium Update and Average Reaction</a></li>
 <li><a href="#low-update-and-slow-reaction">Low Update and Slow reaction</a></li>
 </ul></li>
+<li><a href="#reference">Reference</a></li>
 </ul>
 </nav>
           
           
-
-<h1 id="reference">Reference</h1>
-
-<p><a href="https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md">https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md</a></p>
 
 <h1 id="overview">Overview</h1>
 
@@ -284,6 +291,10 @@ vary from 15 to 25.</p>
 
 <p>There can be different combinations such as Fast Update with Slow reaction to
 satisfy specific cases.</p>
+
+<h1 id="reference">Reference</h1>
+
+<p><a href="https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md">https://github.com/kubernetes-incubator/kubespray/blob/master/docs/kubernetes-reliability.md</a></p>
 
         </div>
         
@@ -414,12 +425,6 @@ satisfy specific cases.</p>
             
               <li class="post">
                 <a href="/blog/2018-09-06-k8s-reliability-doc-from-kubespray/">K8s Reliability doc from kubespray</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="/blog/2018-09-04-gvisor-vs-kata-container/">gVisor VS Kata Container</a>
               </li>
             
           
