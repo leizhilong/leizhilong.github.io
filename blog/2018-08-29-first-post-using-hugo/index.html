@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
   
@@ -36,12 +33,12 @@
   
   
 
-  <meta name="description" content="">
+  <meta name="description" content="" />
   <meta name="keywords" content="[Lei Zhilong leizhilong kubernetes linux container golang mobile app back-end service blog]">
   <meta name="author" content="leizhilong">
 
   
-  <meta name="generator" content="Hugo 0.52" />
+  <meta name="generator" content="Hugo 0.68.3" />
 
   
   
@@ -143,7 +140,7 @@ Create two projects on Github  Blog source, assuming github."/>
 
 <header>
   <p class="meta">Aug 29, 2018
-     - 3 minute read 
+     - 2 minute read 
     
 
     
@@ -162,194 +159,148 @@ Create two projects on Github  Blog source, assuming github."/>
           
           
             <nav id="TableOfContents">
-<ul>
-<li><a href="#hello-hugo">Hello Hugo</a>
-<ul>
-<li><a href="#hugo-introduction">Hugo Introduction</a>
-<ul>
-<li><a href="#create-two-projects-on-github">Create two projects on Github</a></li>
-</ul></li>
-<li><a href="#install-hugo">Install hugo</a>
-<ul>
-<li><a href="#build-a-new-hugo-site">Build a new hugo site</a></li>
-<li><a href="#commit-blog-site-into-source-repo">Commit blog site into source repo</a></li>
-<li><a href="#add-a-theme-to-your-blog">Add a theme to your blog</a></li>
-<li><a href="#add-some-content-and-preview-it">Add some content and preview it</a></li>
-<li><a href="#host-hugo-blog-site-on-github">Host hugo blog site on GitHub</a></li>
-<li><a href="#done">DONE</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#hugo-introduction">Hugo Introduction</a>
+      <ul>
+        <li><a href="#create-two-projects-on-github">Create two projects on Github</a></li>
+      </ul>
+    </li>
+    <li><a href="#install-hugo">Install hugo</a>
+      <ul>
+        <li><a href="#build-a-new-hugo-site">Build a new hugo site</a></li>
+        <li><a href="#commit-blog-site-into-source-repo">Commit blog site into source repo</a></li>
+        <li><a href="#add-a-theme-to-your-blog">Add a theme to your blog</a></li>
+        <li><a href="#add-some-content-and-preview-it">Add some content and preview it</a></li>
+        <li><a href="#host-hugo-blog-site-on-github">Host hugo blog site on GitHub</a></li>
+        <li><a href="#done">DONE</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
           
-          
-
-<h1 id="hello-hugo">Hello Hugo</h1>
-
+          <h1 id="hello-hugo">Hello Hugo</h1>
 <p>I have changed my blog to a <a href="https://gohugo.io">hugo</a> site and this is my first post using hugo.</p>
-
 <h2 id="hugo-introduction">Hugo Introduction</h2>
-
 <p><a href="https://gohugo.io/">Hugo</a> is a fast and modern static site generator written in Go, and I use it to build my blog. Here are some steps to build your own blog pages with Github Pages and Hugo, and it&rsquo;s fast and all free.</p>
-
 <h3 id="create-two-projects-on-github">Create two projects on Github</h3>
-
 <ul>
 <li>Blog source, assuming <code>github.com/&lt;username&gt;/blog</code></li>
 <li>Generated blog static pages, assuming <code>github.com/&lt;username&gt;.github.io</code></li>
 </ul>
-
 <p>Initialize <code>github.com/&lt;username&gt;.github.io</code> with a README.md or anything else you like, while the source blog repo can be left empty.</p>
-
 <h2 id="install-hugo">Install hugo</h2>
-
 <p>Check docs on <a href="https://gohugo.io/getting-started/installing/">Hugo doc site</a></p>
-
 <h3 id="build-a-new-hugo-site">Build a new hugo site</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#6272a4">## new blog site</span>
 hugo new site blog
-<span style="color:#8be9fd;font-style:italic">cd</span> blog</code></pre></td></tr></table>
+<span style="color:#8be9fd;font-style:italic">cd</span> blog
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="commit-blog-site-into-source-repo">Commit blog site into source repo</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base">git init
+</div><h3 id="commit-blog-site-into-source-repo">Commit blog site into source repo</h3>
+<pre><code class="language-base" data-lang="base">git init
 git add .
-git commit -m &#34;first commit&#34;
+git commit -m &quot;first commit&quot;
 git remote add origin git@github.com:&lt;username&gt;/blog.git
-git push -u origin master</code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="add-a-theme-to-your-blog">Add a theme to your blog</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base">git init;
+git push -u origin master
+</code></pre><h3 id="add-a-theme-to-your-blog">Add a theme to your blog</h3>
+<pre><code class="language-base" data-lang="base">git init;
 git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke;
 
 # Edit your config.toml configuration file
 # and add the Ananke theme.
-echo &#39;theme = &#34;ananke&#34;&#39; &gt;&gt; config.toml</code></pre></td></tr></table>
-</div>
-</div>
-<p>To find more themes, go <a href="http://themes.gohugo.io/">http://themes.gohugo.io/</a></p>
-
+echo 'theme = &quot;ananke&quot;' &gt;&gt; config.toml
+</code></pre><p>To find more themes, go <a href="http://themes.gohugo.io/">http://themes.gohugo.io/</a></p>
 <h3 id="add-some-content-and-preview-it">Add some content and preview it</h3>
+<pre><code class="language-base" data-lang="base">hugo new posts/my-first-post.md
+</code></pre><p>New post is configurated as draft in meta data block, change it to <code>false</code> when you finish editing and decide to publish it.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-base" data-lang="base">hugo new posts/my-first-post.md</code></pre></td></tr></table>
-</div>
-</div>
-<p>New post is configurated as draft in meta data block, change it to <code>false</code> when you finish editing and decide to publish it.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-title: <span style="color:#f1fa8c">&#34;About&#34;</span>
-date: 2017-08-29T18:05:29+<span style="color:#bd93f9">08</span>:<span style="color:#bd93f9">00</span>
-draft: <span style="color:#ff79c6">true</span>
----</code></pre></td></tr></table>
+<span style="color:#ff79c6">title</span>: <span style="color:#f1fa8c">&#34;About&#34;</span>
+<span style="color:#ff79c6">date</span>: 2017-08-29T18:05:29<span style="color:#bd93f9">+08</span>:<span style="color:#bd93f9">00</span>
+<span style="color:#ff79c6">draft</span>: <span style="color:#ff79c6">true</span>
+---
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Start a local draft server to preview it at <a href="http://localhost:1313/">http://localhost:1313/</a></p>
+</div><p>Start a local draft server to preview it at <a href="http://localhost:1313/">http://localhost:1313/</a></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo server -D</code></pre></td></tr></table>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo server -D
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>The flag <code>-D</code> enables hugo to render draft pages.</p>
-
+</div><p>The flag <code>-D</code> enables hugo to render draft pages.</p>
 <h3 id="host-hugo-blog-site-on-github">Host hugo blog site on GitHub</h3>
-
 <ul>
 <li>Remove your <code>public</code> directory in you blog source repo</li>
 </ul>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -rf public</code></pre></td></tr></table>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -rf public
+</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
+</div><ul>
 <li>Use your generated static blog repo as a submodule of the source repo</li>
 </ul>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule add -b master git@github.com:&lt;usename&gt;/&lt;username&gt;.github.io.git public.</code></pre></td></tr></table>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git submodule add -b master git@github.com:&lt;usename&gt;/&lt;username&gt;.github.io.git public.
+</code></pre></td></tr></table>
 </div>
-</div>
-<ul>
+</div><ul>
 <li>Use a deploy script to publish your generated pages</li>
 </ul>
-
 <p>Save script as <code>deploy.sh</code> in your source repo and run it to publish.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">24
+<pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#!/bin/bash
 </span><span style="color:#ff79c6"></span>
 <span style="color:#8be9fd;font-style:italic">echo</span> -e <span style="color:#f1fa8c">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
@@ -373,11 +324,10 @@ git commit -m <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd
 git push origin master
 
 <span style="color:#6272a4"># Come Back up to the Project Root</span>
-<span style="color:#8be9fd;font-style:italic">cd</span> ..</code></pre></td></tr></table>
+<span style="color:#8be9fd;font-style:italic">cd</span> ..
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="done">DONE</h3>
-
+</div><h3 id="done">DONE</h3>
 <p>Now you can try to access your blog at <code>https://&lt;usename&gt;.github.io</code></p>
 
         </div>
@@ -424,11 +374,11 @@ git push origin master
 
     <p>
       
-        Hi, Lei Zhilong here.
-  </br>
-  I am based in Shanghai and focus on technology about Kubernetes, Linux Containers, Mobile App back-end service (Java) and Golang application development.
-  </br>
- Here I keep my notes and thoughts about things I&rsquo;m interested in. If you want to know more or talk to me, click on <a href="/about/">About Me</a> or contact me via <a href="https://twitter.com/leizhilong">Twitter</a>.
+        Hi, Lei Zhilong here. 
+<!-- raw HTML omitted -->
+I am based in Shanghai and focus on technology about Kubernetes, Linux Containers, Mobile App back-end service (Java) and Golang application development.
+<!-- raw HTML omitted -->
+Here I keep my notes and thoughts about things I&rsquo;m interested in. If you want to know more or talk to me, click on <a href="/about/">About Me</a> or contact me via <a href="https://twitter.com/leizhilong">Twitter</a>.
       
     </p>
   </section>
@@ -507,10 +457,6 @@ git push origin master
             
           
             
-              <li class="post">
-                <a href="/blog/2018-09-06-k8s-reliability-doc-from-kubespray/">K8s Reliability doc from kubespray</a>
-              </li>
-            
           
         </ul>
       </section>
@@ -522,7 +468,7 @@ git push origin master
 </div>
 
     <footer role="contentinfo">
-      <p>Copyright &copy; 2018 leizhilong - <a href="https://leizhilong.github.io/license/">License</a> -
+      <p>Copyright &copy; 2020 leizhilong - <a href="https://leizhilong.github.io/license/">License</a> -
         <span class="credit">Powered by <a target="_blank" href="https://gohugo.io">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/">Hugo-Octopress</a> theme.
       </p>
     </footer>

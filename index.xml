@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lei Zhilong&#39;s Blog</title>
@@ -6,7 +6,7 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Nov 2018 10:44:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Aug 2017 18:05:29 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -29,7 +29,7 @@
       <description>Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
 To have a simple view the most of parts of HA will be skipped to describe Kubelet&amp;lt;-&amp;gt;Controller Manager communication only.
 By default the normal behavior looks like:
- Kubelet updates it status to apiserver periodically, as specified by --node-status-update-frequency. The default value is 10s.</description>
+  Kubelet updates it status to apiserver periodically, as specified by --node-status-update-frequency. The default value is 10s.</description>
     </item>
     
     <item>
@@ -68,7 +68,8 @@ Create two projects on Github  Blog source, assuming github.</description>
       
       <guid>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</guid>
       <description>Introduction Hexo is an alternative of jekyll to create static blog pages from markdown on Github Pages. Implemented with nodejs, Hexo is quite easy to use compared with jekyll. Using Hexo and a theme named &amp;ldquo;NexT&amp;rdquo;, I am here now to demonstrate how to create a pretty nice blog site on Github Pages within just a few minutes.
-Prerequisites To begin with, you&amp;rsquo;ll need: * node * git * a github account</description>
+Prerequisites To begin with, you&amp;rsquo;ll need:
+ node git a github account  Step By Step 1.</description>
     </item>
     
   </channel>
