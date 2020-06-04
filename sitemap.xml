@@ -18,11 +18,6 @@
   </url>
   
   <url>
-    <loc>https://leizhilong.github.io/</loc>
-    <lastmod>2020-05-10T10:54:17+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://leizhilong.github.io/post/</loc>
     <lastmod>2020-05-10T10:54:17+08:00</lastmod>
   </url>
@@ -114,6 +109,11 @@
   
   <url>
     <loc>https://leizhilong.github.io/about/</loc>
+    <lastmod>2017-08-29T18:05:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://leizhilong.github.io/</loc>
     <lastmod>2017-08-29T18:05:29+08:00</lastmod>
   </url>
   

@@ -38,7 +38,7 @@
   <meta name="author" content="leizhilong">
 
   
-  <meta name="generator" content="Hugo 0.71.1" />
+  <meta name="generator" content="Hugo 0.68.3" />
 
   
   
@@ -54,34 +54,7 @@
   
   
   <meta name="twitter:title" content="Why Swap should be disabled on Kubernetes"/>
-  <meta name="twitter:description" content="Issue Description
-Since Kubernetes 1.8, a kubelet flag fail-swap-on has been set to a default value true, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on github talking about this change, unfortunately no pregress has been made officially. I&rsquo;m trying to understand the whole story and here&rsquo;s some information I found.
-
-(PS., the kubelet&rsquo;s flag fail-swap-on was deprecated and moved to the config file specified by the --config flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)
-
-Why
-As I understand it, the reason of disabling swap is that the whole Kuberentes resource QoS(Quality of Service) policy implementation is designed on the base of explicitly resource limitation and scheduling. As we all konw, there are 3 classes of QoS for each Pod on Kuberentes:
-
-Best-Effort pods will be treated as lowest priority. Processes in these pods are the first to get killed if the system runs out of memory. These containers can use any amount of free memory in the node though.
-Guaranteed pods are considered top-priority and are guaranteed to not be killed until they exceed their limits, or if the system is under memory pressure and there are no lower priority containers that can be evicted.
-Burstable pods have some form of minimal resource guarantee, but can use more resources when available. Under system memory pressure, these containers are more likely to be killed once they exceed their requests and no Best-Effort pods exist.
-
-Accroding to this design, Guaranteed pods should never have to use swap and Best-Effort pods should only run on nodes with free memory. While Burstable pods exceed their memory requests, they should either be allocated with more memory within the limits if it&rsquo;s possible for  the underlay nodes to spare or be killed under pressure. All of these pods should not be faced with the decision whether or not to use swap.
-Of course, if kubelet is smart enough and linux kernel provides deterministic isolation behavior for swap spaces, swap might be a good option. But even if it&rsquo;s technically possible, there definitely tons of job to do. &ldquo;Support for swap is non-trivial&rdquo;, says Kubernetes community. Considering the effort have to make swap usable and the gains it could realize, optimizing for swap is given much lower priority compared to improving reliability around pressure detection, optimizing issues around latency or other similar features. That&rsquo;s why the Kuberentes issue #53533 on Github has been open for quite a longtime. There is even a description in official desgin documentation to address this issue
-
-The current QoS policy assumes that swap is disabled. If swap is enabled, then resource guarantees (for pods that specify resource requirements) will not hold. For example, suppose 2 guaranteed pods have reached their memory limit. They can continue allocating memory by utilizing disk space. Eventually, if there isn&rsquo;t enough swap space, processes in the pods might get killed. The node must take into account swap space explicitly for providing deterministic isolation behavior.
-
-To summarize, the lack of swap support for Kubernetes lies in the fact that swap usage is not even expected in Kubernetes and there are enormous work to be done before swap can be used in product grade. IMHO, these work are no just about Kubernets itself but enven more about Linux kernel. It might be problem for the Kubernetes community to find a strong motivation to tackle this issue considering the huge amount of efforts.
-Arguement
-Even though there is still a longtime to expected swap get official supported, the communities have been providing more and more scenarios that prove the necessarity. One of the cases is that some of the applications are designed make use of swap to handle tasks using up 10 or 100 more times memory in peak time than handling normal tasks. In this case, it might be impossible to for user to prepare enough phisycal memory since the costs might be unacceptable. In this scenario, the need of swap is crucial and the absence of swap support might drive users away from Kubernetes.
-In my case, I&rsquo;ve been experiencing some strange behaviors of my workload containers in which MySQL server runs with swap enabled and resources guaranteed. Since we have been using kubernetes for more than 2 years, the Kubernetes version is quite old and disabling swap is still not a default setting. What we have inspected is that even if there are sufficient memory for the workload, the usage swap keeps going up slowly util the process get killed by OOMKiller.I guess that might be one of the reasons handling swap is pretty complicated.
-As far as I&rsquo;m concerned, the support of Swap is not just about turning on some flags of Kubernetes but involves with how to establish a whole michanism of swap utilization, limitation, regulation and isolation from Linux kernel，Kubernetes to application layer. Before that can be done, I would argue that people should be cautious to run workloads in Kubernetes with swap on.
-Reference
-Here&rsquo;s some links to the community discussions. Jump in, it&rsquo;s still goning.
-
-https://github.com/kubernetes/kubernetes/issues/53533
-https://github.com/kubernetes/kubernetes/issues/7294
-"/>
+  <meta name="twitter:description" content="Issue Description Since Kubernetes 1.8, a kubelet flag fail-swap-on has been set to a default value true, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on github talking about this change, unfortunately no pregress has been made officially."/>
   
   <meta name="twitter:domain" content="leizhilong"/>
   <meta name="twitter:creator" content="@leizhilong"/>
@@ -94,7 +67,7 @@ https://github.com/kubernetes/kubernetes/issues/7294
 <header role="banner">
 <hgroup>
   
-  <h1><a href="https://leizhilong.github.io/">Lei Zhilong&#39;s Blog</a></h1>
+  <h1><a href="https://leizhilong.github.io/">Lei Zhilong</a></h1>
     <h2>Just some tech notes and thoughts, feel free to explore</h2>
 </hgroup></header>
 
@@ -110,6 +83,8 @@ https://github.com/kubernetes/kubernetes/issues/7294
         <option value="https://leizhilong.github.io/categories/">» Categories</option>
       
         <option value="https://leizhilong.github.io/tags/">» Tags</option>
+      
+        <option value="https://leizhilong.github.io/cheatsheet/">» CheatSheets</option>
       
         <option value="https://leizhilong.github.io/about/">» About Me</option>
       
@@ -130,6 +105,10 @@ https://github.com/kubernetes/kubernetes/issues/7294
   
     
       <li><a href="https://leizhilong.github.io/tags/" title="Tags" >Tags</a></li>
+    
+  
+    
+      <li><a href="https://leizhilong.github.io/cheatsheet/" title="CheatSheets" >CheatSheets</a></li>
     
   
     
@@ -168,7 +147,7 @@ https://github.com/kubernetes/kubernetes/issues/7294
 <header>
   <p class="meta">May 10, 2020
      - 5 minute read 
-    
+     - <a href="https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/#disqus_thread">Comments</a>
 
     
     
@@ -196,9 +175,6 @@ https://github.com/kubernetes/kubernetes/issues/7294
           
           <h2 id="issue-description">Issue Description</h2>
 <p>Since Kubernetes 1.8, a kubelet flag <code>fail-swap-on</code> has been set to a default value <code>true</code>, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on github talking about this change, unfortunately no pregress has been made officially. I&rsquo;m trying to understand the whole story and here&rsquo;s some information I found.</p>
-<blockquote>
-<p>(PS., the kubelet&rsquo;s flag <code>fail-swap-on</code> was deprecated and moved to the config file specified by the <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/</a> for more information.)</p>
-</blockquote>
 <h2 id="why">Why</h2>
 <p>As I understand it, the reason of disabling swap is that the whole Kuberentes resource QoS(Quality of Service) policy implementation is designed on the base of explicitly resource limitation and scheduling. As we all konw, there are 3 classes of QoS for each Pod on Kuberentes:</p>
 <ul>
@@ -217,11 +193,15 @@ https://github.com/kubernetes/kubernetes/issues/7294
 <p>In my case, I&rsquo;ve been experiencing some strange behaviors of my workload containers in which MySQL server runs with swap enabled and resources guaranteed. Since we have been using kubernetes for more than 2 years, the Kubernetes version is quite old and disabling swap is still not a default setting. What we have inspected is that even if there are sufficient memory for the workload, the usage swap keeps going up slowly util the process get killed by OOMKiller.I guess that might be one of the reasons handling swap is pretty complicated.</p>
 <p>As far as I&rsquo;m concerned, the support of Swap is not just about turning on some flags of Kubernetes but involves with how to establish a whole michanism of swap utilization, limitation, regulation and isolation from Linux kernel，Kubernetes to application layer. Before that can be done, I would argue that people should be cautious to run workloads in Kubernetes with swap on.</p>
 <h2 id="reference">Reference</h2>
-<p>Here&rsquo;s some links to the community discussions. Jump in, it&rsquo;s still goning.</p>
+<p>Here&rsquo;s some links to the community discussions. Jump in, it&rsquo;s still goning on.</p>
 <ul>
 <li><a href="https://github.com/kubernetes/kubernetes/issues/53533">https://github.com/kubernetes/kubernetes/issues/53533</a></li>
 <li><a href="https://github.com/kubernetes/kubernetes/issues/7294">https://github.com/kubernetes/kubernetes/issues/7294</a></li>
 </ul>
+<blockquote>
+<p>(PS., the kubelet&rsquo;s flag <code>fail-swap-on</code> was deprecated and moved to the config file specified by the <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/</a> for more information.)</p>
+</blockquote>
+
         </div>
         
 
@@ -248,6 +228,27 @@ https://github.com/kubernetes/kubernetes/issues/7294
 
     
   </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+      
+      
+      
+      if (window.location.hostname == "localhost")
+          return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'leizhilong';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
   
 </footer>
 
