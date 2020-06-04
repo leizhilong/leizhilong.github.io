@@ -6,26 +6,62 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Aug 2017 18:05:29 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 10 Dec 2018 10:54:17 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Why Swap should be disabled on Kubernetes</title>
+      <link>https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/</link>
+      <pubDate>Mon, 10 Dec 2018 10:54:17 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/</guid>
+      <description>&lt;h2 id=&#34;issue-description&#34;&gt;Issue Description&lt;/h2&gt;
+&lt;p&gt;Since Kubernetes 1.8, a kubelet flag &lt;code&gt;fail-swap-on&lt;/code&gt; has been set to a default value &lt;code&gt;true&lt;/code&gt;, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on github talking about this change, unfortunately no pregress has been made officially. I&amp;rsquo;m trying to understand the whole story and here&amp;rsquo;s some information I found.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(PS., the kubelet&amp;rsquo;s flag &lt;code&gt;fail-swap-on&lt;/code&gt; was deprecated and moved to the config file specified by the &lt;code&gt;--config&lt;/code&gt; flag. See &lt;a href=&#34;https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/&#34;&gt;https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/&lt;/a&gt; for more information.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;why&#34;&gt;Why&lt;/h2&gt;
+&lt;p&gt;As I understand it, the reason of disabling swap is that the whole Kuberentes resource QoS(Quality of Service) policy implementation is designed on the base of explicitly resource limitation and scheduling. As we all konw, there are 3 classes of QoS for each Pod on Kuberentes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Best-Effort&lt;/code&gt; pods will be treated as lowest priority. Processes in these pods are the first to get killed if the system runs out of memory. These containers can use any amount of free memory in the node though.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Guaranteed&lt;/code&gt; pods are considered top-priority and are guaranteed to not be killed until they exceed their limits, or if the system is under memory pressure and there are no lower priority containers that can be evicted.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Burstable&lt;/code&gt; pods have some form of minimal resource guarantee, but can use more resources when available. Under system memory pressure, these containers are more likely to be killed once they exceed their requests and no Best-Effort pods exist.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Accroding to this design, &lt;code&gt;Guaranteed&lt;/code&gt; pods should never have to use swap and &lt;code&gt;Best-Effort&lt;/code&gt; pods should only run on nodes with free memory. While &lt;code&gt;Burstable&lt;/code&gt; pods exceed their memory requests, they should either be allocated with more memory within the limits if it&amp;rsquo;s possible for  the underlay nodes to spare or be killed under pressure. All of these pods should not be faced with the decision whether or not to use swap.&lt;/p&gt;
+&lt;p&gt;Of course, if kubelet is smart enough and linux kernel provides deterministic isolation behavior for swap spaces, swap might be a good option. But even if it&amp;rsquo;s technically possible, there definitely tons of job to do. &amp;ldquo;&lt;code&gt;Support for swap is non-trivial&lt;/code&gt;&amp;rdquo;, says Kubernetes community. Considering the effort have to make swap usable and the gains it could realize, optimizing for swap is given much lower priority compared to improving reliability around pressure detection, optimizing issues around latency or other similar features. That&amp;rsquo;s why the Kuberentes issue &lt;a href=&#34;https://github.com/kubernetes/kubernetes/issues/53533&#34;&gt;#53533&lt;/a&gt; on Github has been open for quite a longtime. There is even a &lt;a href=&#34;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md#support-for-swap&#34;&gt;description&lt;/a&gt; in official desgin documentation to address this issue&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The current QoS policy assumes that swap is disabled. If swap is enabled, then resource guarantees (for pods that specify resource requirements) will not hold. For example, suppose 2 guaranteed pods have reached their memory limit. They can continue allocating memory by utilizing disk space. Eventually, if there isn&amp;rsquo;t enough swap space, processes in the pods might get killed. The node must take into account swap space explicitly for providing deterministic isolation behavior.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To summarize, the lack of swap support for Kubernetes lies in the fact that swap usage is not even expected in Kubernetes and there are enormous work to be done before swap can be used in product grade. IMHO, these work are no just about Kubernets itself but enven more about Linux kernel. It might be problem for the Kubernetes community to find a strong motivation to tackle this issue considering the huge amount of efforts.&lt;/p&gt;
+&lt;h2 id=&#34;arguement&#34;&gt;Arguement&lt;/h2&gt;
+&lt;p&gt;Even though there is still a longtime to expected swap get official supported, the communities have been providing more and more scenarios that prove the necessarity. One of the cases is that some of the applications are designed make use of swap to handle tasks using up 10 or 100 more times memory in peak time than handling normal tasks. In this case, it might be impossible to for user to prepare enough phisycal memory since the costs might be unacceptable. In this scenario, the need of swap is crucial and the absence of swap support might drive users away from Kubernetes.&lt;/p&gt;
+&lt;p&gt;In my case, I&amp;rsquo;ve been experiencing some strange behaviors of my workload containers in which MySQL server runs with swap enabled and resources guaranteed. Since we have been using kubernetes for more than 2 years, the Kubernetes version is quite old and disabling swap is still not a default setting. What we have inspected is that even if there are sufficient memory for the workload, the usage swap keeps going up slowly util the process get killed by OOMKiller.I guess that might be one of the reason handling swap is pretty complicated.&lt;/p&gt;
+&lt;p&gt;As far as I&amp;rsquo;m concerned, the support of Swap is not just about turning on some flags of Kubernetes but involves with how to establish a whole michanism of swap utilization, limitation, regulation and isolation from Linux kernel，Kubernetes to application layer. Before that can be done, I would argue that people should be cautious to run workloads in Kubernetes with swap on.&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;Here&amp;rsquo;s some links to the community discussions. Jump in, it&amp;rsquo;s still goning.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kubernetes/kubernetes/issues/53533&#34;&gt;https://github.com/kubernetes/kubernetes/issues/53533&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kubernetes/kubernetes/issues/7294&#34;&gt;https://github.com/kubernetes/kubernetes/issues/7294&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
       <title>Case Study: Swapoff Cannot Allocate Memory</title>
-      <link>https://leizhilong.github.io/blog/2018-11-12-case-study-swapoff-cannot-allocate-memory/</link>
+      <link>https://leizhilong.github.io/post/case-study-swapoff-cannot-allocate-memory/</link>
       <pubDate>Mon, 12 Nov 2018 10:44:52 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/blog/2018-11-12-case-study-swapoff-cannot-allocate-memory/</guid>
+      <guid>https://leizhilong.github.io/post/case-study-swapoff-cannot-allocate-memory/</guid>
       <description>Description On some of our CentOS Linux nodes, we use Zabbix to monitor host resources. Sometimes, Zabbix reports system swap space high usage when the used size is larger then 50% of its total space, which indicates there may not be sufficient RAM. After cleaning up some unused tasks, available memory reaches up to 90GB+ according to the result of free -h command while the total swap space is only 10GB.</description>
     </item>
     
     <item>
       <title>K8s Reliability doc from kubespray</title>
-      <link>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</link>
+      <link>https://leizhilong.github.io/post/k8s-reliability/</link>
       <pubDate>Thu, 06 Sep 2018 14:06:54 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/blog/2018-09-06-k8s-reliability-doc-from-kubespray/</guid>
+      <guid>https://leizhilong.github.io/post/k8s-reliability/</guid>
       <description>Overview Distributed system such as Kubernetes are designed to be resilient to the failures. More details about Kubernetes High-Availability (HA) may be found at Building High-Availability Clusters
 To have a simple view the most of parts of HA will be skipped to describe Kubelet&amp;lt;-&amp;gt;Controller Manager communication only.
 By default the normal behavior looks like:
@@ -34,19 +70,19 @@ By default the normal behavior looks like:
     
     <item>
       <title>gVisor VS Kata Container</title>
-      <link>https://leizhilong.github.io/blog/2018-09-04-gvisor-vs-kata-container/</link>
+      <link>https://leizhilong.github.io/post/gvisor-vs-kata/</link>
       <pubDate>Tue, 04 Sep 2018 18:00:31 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/blog/2018-09-04-gvisor-vs-kata-container/</guid>
+      <guid>https://leizhilong.github.io/post/gvisor-vs-kata/</guid>
       <description>Kata Container  Full Kernel Lets system calls go through freely Performance penalty due to the VM layer. Not clear yet how slower or faster than gVisor On paper, slower startup time. Can run in nested virtualized environments if the hypervisor and hardware support it.  gVisor  Partial Kernel Intercepts syscalls Performance penalty at runtime due to syscall filtering. Not clear how slower or faster than Kata yet. On paper, faster startup time.</description>
     </item>
     
     <item>
       <title>First Post Using Hugo</title>
-      <link>https://leizhilong.github.io/blog/2018-08-29-first-post-using-hugo/</link>
+      <link>https://leizhilong.github.io/post/my-first-post/</link>
       <pubDate>Wed, 29 Aug 2018 17:38:11 +0800</pubDate>
       
-      <guid>https://leizhilong.github.io/blog/2018-08-29-first-post-using-hugo/</guid>
+      <guid>https://leizhilong.github.io/post/my-first-post/</guid>
       <description>Hello Hugo I have changed my blog to a hugo site and this is my first post using hugo.
 Hugo Introduction Hugo is a fast and modern static site generator written in Go, and I use it to build my blog. Here are some steps to build your own blog pages with Github Pages and Hugo, and it&amp;rsquo;s fast and all free.
 Create two projects on Github  Blog source, assuming github.</description>
@@ -63,10 +99,10 @@ Create two projects on Github  Blog source, assuming github.</description>
     
     <item>
       <title>Hexo Test Drive</title>
-      <link>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</link>
+      <link>https://leizhilong.github.io/post/hexo-test-drive/</link>
       <pubDate>Wed, 26 Apr 2017 21:46:19 +0000</pubDate>
       
-      <guid>https://leizhilong.github.io/blog/2017-04-26-hexo-test-drive/</guid>
+      <guid>https://leizhilong.github.io/post/hexo-test-drive/</guid>
       <description>Introduction Hexo is an alternative of jekyll to create static blog pages from markdown on Github Pages. Implemented with nodejs, Hexo is quite easy to use compared with jekyll. Using Hexo and a theme named &amp;ldquo;NexT&amp;rdquo;, I am here now to demonstrate how to create a pretty nice blog site on Github Pages within just a few minutes.
 Prerequisites To begin with, you&amp;rsquo;ll need:
  node git a github account  Step By Step 1.</description>

@@ -14,7 +14,7 @@
   
 
   
-  <title>About</title>
+  <title>gVisor VS Kata Container</title>
 
   
   
@@ -51,8 +51,8 @@
     <meta name="twitter:card" content="summary"/>
   
   
-  <meta name="twitter:title" content="About"/>
-  <meta name="twitter:description" content="囧 Just some kind of nerd/geek/tech guy&hellip;"/>
+  <meta name="twitter:title" content="gVisor VS Kata Container"/>
+  <meta name="twitter:description" content="Kata Container  Full Kernel Lets system calls go through freely Performance penalty due to the VM layer. Not clear yet how slower or faster than gVisor On paper, slower startup time. Can run in nested virtualized environments if the hypervisor and hardware support it.  gVisor  Partial Kernel Intercepts syscalls Performance penalty at runtime due to syscall filtering. Not clear how slower or faster than Kata yet. On paper, faster startup time."/>
   
   <meta name="twitter:domain" content="leizhilong"/>
   <meta name="twitter:creator" content="@leizhilong"/>
@@ -132,23 +132,57 @@
   <div id="content">
     <div>
       <article class="hentry" role="article">
-        <header>
-          <h1 class="entry-title">
-            About 
-          </h1>
-          <p class="meta">Aug 29, 2017 - 1 minute read - 
 
-          
+        
+        
 
-          </p>
-        </header>
+<header>
+  <p class="meta">Sep 4, 2018
+     - 1 minute read 
+    
+
+    
+    
+      - <a class="label" href="https://leizhilong.github.io/categories/go/">Go </a><a class="label" href="https://leizhilong.github.io/categories/container/">Container </a>
+    
+  </p>
+  <h1 class="entry-title">
+     gVisor VS Kata Container 
+  </h1>
+</header>
+
+
         <div class="entry-content">
           
           
           
-          <h2 id="囧">囧</h2>
-<p><img src="about.jpg" alt="Image"></p>
-<p>Just some kind of nerd/geek/tech guy&hellip;</p>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kata-container">Kata Container</a></li>
+    <li><a href="#gvisor">gVisor</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+          
+          <h2 id="kata-container">Kata Container</h2>
+<ul>
+<li>Full Kernel</li>
+<li>Lets system calls go through freely</li>
+<li>Performance penalty due to the VM layer. Not clear yet how slower or faster than gVisor</li>
+<li>On paper, slower startup time.</li>
+<li>Can run in nested virtualized environments if the hypervisor and hardware support it.</li>
+</ul>
+<h2 id="gvisor">gVisor</h2>
+<ul>
+<li>Partial Kernel</li>
+<li>Intercepts syscalls</li>
+<li>Performance penalty at runtime due to syscall filtering. Not clear how slower or faster than Kata yet.</li>
+<li>On paper, faster startup time.</li>
+<li>On paper, you may not need nested virtualization.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p>Original discussion:</p>
+<p><a href="https://stackoverflow.com/questions/50143367/kata-container-vs-gvisor">https://stackoverflow.com/questions/50143367/kata-container-vs-gvisor</a></p>
 
         </div>
         
@@ -157,7 +191,12 @@
   <p class="meta">
     <span class="byline author vcard">Posted by <span class="fn">leizhilong</span></span>
     
-    <time>Aug 29, 2017</time>
+    <time>Sep 4, 2018</time>
+    
+      <span class="categories">
+        Tags:
+        
+          <a class="category" href="https://leizhilong.github.io/tags/gvisor">gVisor</a>  <a class="category" href="https://leizhilong.github.io/tags/kata">Kata</a>  
     
     </span>
   </p>
@@ -166,7 +205,11 @@
 
   <p class="meta">
     
+        <a class="basic-alignment left" href="https://leizhilong.github.io/post/my-first-post/" title="First Post Using Hugo">First Post Using Hugo</a>
+    
 
+    
+      <a class="basic-alignment right" href="https://leizhilong.github.io/post/k8s-reliability/" title="K8s Reliability doc from kubespray">K8s Reliability doc from kubespray</a>
     
   </p>
   
