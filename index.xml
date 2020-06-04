@@ -6,7 +6,7 @@
     <description>Recent content on Lei Zhilong&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Dec 2018 10:54:17 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2020 10:54:17 +0800</lastBuildDate>
     
 	<atom:link href="https://leizhilong.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Why Swap should be disabled on Kubernetes</title>
       <link>https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/</link>
-      <pubDate>Mon, 10 Dec 2018 10:54:17 +0800</pubDate>
+      <pubDate>Sun, 10 May 2020 10:54:17 +0800</pubDate>
       
       <guid>https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/</guid>
       <description>&lt;h2 id=&#34;issue-description&#34;&gt;Issue Description&lt;/h2&gt;
