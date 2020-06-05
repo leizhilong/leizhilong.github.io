@@ -17,7 +17,7 @@
       <pubDate>Sun, 10 May 2020 10:54:17 +0800</pubDate>
       
       <guid>https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/</guid>
-      <description>Issue Description Since Kubernetes 1.8, a kubelet flag fail-swap-on has been set to a default value true, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on github talking about this change, unfortunately no pregress has been made officially.</description>
+      <description>Issue Description Since Kubernetes 1.8, a kubelet flag fail-swap-on has been set to a default value true, which means that swap is not supported by default on Kubernetes. SWAP is used on Unix and Linux by default since they were born. People are astonished to learn that swap has to be disabled on Kubernetes which is supposed to be able to facilitate the full ablity of Linux system. There are several issues on Github talking about this change since 1.</description>
     </item>
     
     <item>
@@ -68,6 +68,17 @@ Create two projects on Github  Blog source, assuming github.</description>
       
       <guid>https://leizhilong.github.io/about/</guid>
       <description>囧 Just some kind of nerd/geek/tech guy&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>https://leizhilong.github.io/license/</link>
+      <pubDate>Tue, 29 Aug 2017 18:05:29 +0800</pubDate>
+      
+      <guid>https://leizhilong.github.io/license/</guid>
+      <description>Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)  This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+ This is a human-readable summary of (and not a substitute for) the license. Disclaimer.
+You are free to:  Share — copy and redistribute the material in any medium or format Adapt — remix, transform, and build upon the material The licensor cannot revoke these freedoms as long as you follow the license terms.</description>
     </item>
     
     <item>
