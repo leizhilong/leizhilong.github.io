@@ -10,7 +10,7 @@
 <input type=hidden name=q value=site:https://leizhilong.github.io/></fieldset></form></nav><div id=main><div id=content><div><article class=hentry role=article><header><p class=meta>Jun 4, 2020
 - 3 minute read
 - <a href=https://leizhilong.github.io/cheatsheet/golang/#disqus_thread>Comments</a>
-- <a class=label href=https://leizhilong.github.io/categories/cheat-sheets/>Cheat Sheets</a></p><h1 class=entry-title>Golang</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#i-struct>I. Struct</a><ul><li><a href=#1-ommit-empty-struct-in-jsonmarshal>1. Ommit empty struct in `json.Marshal()'</a></li><li><a href=#2-avoid-omitempty-for-fields-that-are-asgined-with-0-or-empty-string>2. Avoid <em><code>omitempty</code></em> for fields that are asgined with 0 or empty string</a></li></ul></li></ul></nav><h2 id=i-struct>I. Struct</h2><h3 id=1-ommit-empty-struct-in-jsonmarshal>1. Ommit empty struct in `json.Marshal()'</h3><p>Suppose we have a nested struct like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+- <a class=label href=https://leizhilong.github.io/categories/cheat-sheets/>Cheat Sheets</a></p><h1 class=entry-title>Golang</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#i-struct>I. Struct</a><ul><li><a href=#1-ommit-empty-struct-in-jsonmarshal>1. Ommit empty struct in `json.Marshal()'</a></li><li><a href=#2-avoid-omitempty-for-fields-that-are-asgined-with-0-or-empty-string>2. Avoid <em><code>omitempty</code></em> for fields that are asgined with 0 or empty string</a></li></ul></li><li><a href=#ii-design-pattern>II. Design Pattern</a><ul><li><a href=#21-singleton>2.1 Singleton</a></li></ul></li></ul></nav><h2 id=i-struct>I. Struct</h2><h3 id=1-ommit-empty-struct-in-jsonmarshal>1. Ommit empty struct in `json.Marshal()'</h3><p>Suppose we have a nested struct like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
@@ -139,7 +139,43 @@ fmt.<span style=color:#50fa7b>Println</span>(<span style=color:#8be9fd;font-styl
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{}
 {<span style=color:#ff79c6>&#34;interface_bool_var&#34;</span>:<span style=color:#ff79c6>false</span>,<span style=color:#ff79c6>&#34;interface_int_var&#34;</span>:<span style=color:#bd93f9>0</span>,<span style=color:#ff79c6>&#34;interface_str_var&#34;</span>:<span style=color:#f1fa8c>&#34;&#34;</span>}
-</code></pre></td></tr></table></div></div><p>The result lies in the fact that <code>interface{}</code> won&rsquo;t be nil after being initialized even if the data it points to is empty value.</p></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
+</code></pre></td></tr></table></div></div><p>The result lies in the fact that <code>interface{}</code> won&rsquo;t be nil after being initialized even if the data it points to is empty value.</p><h2 id=ii-design-pattern>II. Design Pattern</h2><h3 id=21-singleton>2.1 Singleton</h3><p>Singleton is usually used as a global instance, initialized lazily or eagerly with double concurrent check.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#ff79c6>package</span> singleton
+
+<span style=color:#ff79c6>import</span> <span style=color:#f1fa8c>&#34;sync&#34;</span>
+
+<span style=color:#8be9fd;font-style:italic>var</span> (
+	lazySingleton <span style=color:#ff79c6>*</span>Singleton
+	once          = <span style=color:#ff79c6>&amp;</span>sync.Once{}
+)
+
+<span style=color:#6272a4>// GetLazyInstance
+</span><span style=color:#6272a4></span><span style=color:#8be9fd;font-style:italic>func</span> <span style=color:#50fa7b>GetLazyInstance</span>() <span style=color:#ff79c6>*</span>Singleton {
+	<span style=color:#ff79c6>if</span> lazySingleton <span style=color:#ff79c6>==</span> <span style=color:#ff79c6>nil</span> {
+		once.<span style=color:#50fa7b>Do</span>(<span style=color:#8be9fd;font-style:italic>func</span>() {
+			lazySingleton = <span style=color:#ff79c6>&amp;</span>Singleton{}
+		})
+	}
+	<span style=color:#ff79c6>return</span> lazySingleton
+}
+</code></pre></td></tr></table></div></div></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
 <time>Jun 4, 2020</time>
 <span class=categories>Tags:
 <a class=category href=https://leizhilong.github.io/tags/golang>Golang</a></span></p><p class=meta><a class="basic-alignment left" href=https://leizhilong.github.io/cheatsheet/kubernetes/ title=Kubernetes>Kubernetes</a>
