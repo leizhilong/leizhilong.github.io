@@ -1,246 +1,239 @@
-<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1"><title>Practicing Infrastructure GitOps using Terraform</title><link rel=stylesheet href=/css/hugo-octopress.css><link rel=stylesheet href=/css/fork-awesome.min.css><link href=https://leizhilong.github.io/favicon.png rel=icon><meta name=description content><meta name=keywords content="[Lei Zhilong leizhilong kubernetes linux container golang mobile app back-end service blog]"><meta name=author content="leizhilong"><meta name=generator content="Hugo 0.75.1"><meta name=twitter:card content="summary"><meta name=twitter:title content="Practicing Infrastructure GitOps using Terraform"><meta name=twitter:description content="Introduction GitOps is an operating model for Kubernetes and other cloud-native technologies that provides a set of best practices that unifies deployment, management, and monitoring for containerized clusters and applications. While terraform is an amazing tool enabling DevOps to operate infrastructure by coding, which is known as IaC(Infrastructure as Code). What if we combine those two together to make provision of infrastructure is like creating a new class in Java programing?"><meta name=twitter:domain content="leizhilong"><meta name=twitter:creator content="@leizhilong"></head><body><header role=banner><hgroup><h1><a href=https://leizhilong.github.io/>Lei Zhilong</a></h1><h2>The best way to input is to output</h2></hgroup></header><nav role=navigation><fieldset class=mobile-nav><select onchange="location=this.value;">
-<option value>Navigate…</option>
-<option value=https://leizhilong.github.io/post/>» Posts</option>
-<option value=https://leizhilong.github.io/categories/>» Categories</option>
-<option value=https://leizhilong.github.io/tags/>» Tags</option>
-<option value=https://leizhilong.github.io/cheatsheet/>» CheatSheets</option>
-<option value=https://leizhilong.github.io/about/>» About Me</option></select></fieldset><ul class=main-navigation><li><a href=https://leizhilong.github.io/post/ title=Posts>Posts</a></li><li><a href=https://leizhilong.github.io/categories/ title=Categories>Categories</a></li><li><a href=https://leizhilong.github.io/tags/ title=Tags>Tags</a></li><li><a href=https://leizhilong.github.io/cheatsheet/ title=CheatSheets>CheatSheets</a></li><li><a href=https://leizhilong.github.io/about/ title="About Me">About Me</a></li></ul><ul class=subscription><a href=https://leizhilong.github.io/index.xml target=_blank type=application/rss+xml title=RSS><i class="fa fa-rss-square fa-lg"></i></a></ul><form action=https://www.google.com/search method=get target=_blank><fieldset role=search><input class=search type=text name=q results=0 placeholder=Search>
+<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1"><title>Practicing Infrastructure GitOps using Terraform</title><link rel=stylesheet href=/css/hugo-octopress.css><link rel=stylesheet href=/css/fork-awesome.min.css><link href=https://leizhilong.github.io/favicon.png rel=icon><meta name=description content><meta name=keywords content="[Lei Zhilong leizhilong kubernetes linux container golang mobile app back-end service blog]"><meta name=author content="leizhilong"><meta name=generator content="Hugo 0.101.0"><meta name=twitter:card content="summary"><meta name=twitter:title content="Practicing Infrastructure GitOps using Terraform"><meta name=twitter:description content="Introduction GitOps is an operating model for Kubernetes and other cloud-native technologies that provides a set of best practices that unifies deployment, management, and monitoring for containerized clusters and applications. While terraform is an amazing tool enabling DevOps to operate infrastructure by coding, which is known as IaC(Infrastructure as Code). What if we combine those two together to make provision of infrastructure is like creating a new class in Java programing?"><meta name=twitter:domain content="leizhilong"><meta name=twitter:creator content="@leizhilong"></head><body><header role=banner><hgroup><h1><a href=https://leizhilong.github.io/>Lei Zhilong</a></h1><h2>The best way to input is to output</h2></hgroup></header><nav role=navigation><fieldset class=mobile-nav><select onchange="location=this.value"><option value>Navigate…</option><option value=https://leizhilong.github.io/post/>» Posts</option><option value=https://leizhilong.github.io/categories/>» Categories</option><option value=https://leizhilong.github.io/tags/>» Tags</option><option value=https://leizhilong.github.io/cheatsheet/>» CheatSheets</option><option value=https://leizhilong.github.io/about/>» About Me</option></select></fieldset><ul class=main-navigation><li><a href=https://leizhilong.github.io/post/ title=Posts>Posts</a></li><li><a href=https://leizhilong.github.io/categories/ title=Categories>Categories</a></li><li><a href=https://leizhilong.github.io/tags/ title=Tags>Tags</a></li><li><a href=https://leizhilong.github.io/cheatsheet/ title=CheatSheets>CheatSheets</a></li><li><a href=https://leizhilong.github.io/about/ title="About Me">About Me</a></li></ul><ul class=subscription><a href=https://leizhilong.github.io/index.xml target=_blank type=application/rss+xml title=RSS><i class="fa fa-rss-square fa-lg"></i></a></ul><form action=https://www.google.com/search method=get target=_blank><fieldset role=search><input class=search type=text name=q results=0 placeholder=Search>
 <input type=hidden name=q value=site:https://leizhilong.github.io/></fieldset></form></nav><div id=main><div id=content><div><article class=hentry role=article><header><p class=meta>Aug 13, 2022
 - 6 minute read
 - <a href=https://leizhilong.github.io/post/terraform-gitops/#disqus_thread>Comments</a>
-- <a class=label href=https://leizhilong.github.io/categories/aws/>AWS </a><a class=label href=https://leizhilong.github.io/categories/devops/>DevOps </a><a class=label href=https://leizhilong.github.io/categories/terraform/>Terraform</a></p><h1 class=entry-title>Practicing Infrastructure GitOps using Terraform</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#prerequisite>Prerequisite</a></li><li><a href=#architecture>Architecture</a></li><li><a href=#key-steps>Key Steps</a></li><li><a href=#summary>Summary</a></li><li><a href=#reference>Reference</a></li></ul></nav><h2 id=introduction>Introduction</h2><p>GitOps is an operating model for Kubernetes and other cloud-native technologies that provides a set of best practices that unifies deployment, management, and monitoring for containerized clusters and applications. While terraform is an amazing tool enabling DevOps to operate infrastructure by coding, which is known as <code>IaC(Infrastructure as Code)</code>. What if we combine those two together to make provision of infrastructure is like creating a new class in Java programing? That is what we are going to find out in this article.</p><h2 id=prerequisite>Prerequisite</h2><p>We choose some typical environment options such as AWS as cloud providers and CircieCI as CICD service providers to demonstrate how. However it&rsquo;s definitely possible to get the same result if you have other options. Before we start, here&rsquo;s what to prepare:</p><ul><li>an AWS account with aws_access_key_id and aws_secret_access_key</li><li>CircleCI account and a git repository integrated with it.</li><li>Terraform and aws command line tool installed on your local workstation for testing.</li></ul><h2 id=architecture>Architecture</h2><p>The diagram bellow shows how the operation works generally.</p><p><img src=./gitops.png alt=gitops></p><p>We push our terraform code into a git repository with a CircleCI pipeline project set up to watch our commits. When new commit triggered the CircleCI Pipeline and some conditions we setup before are meet, a special terraform docker container will be launched in a dedicated environment called <code>Orb</code>. With API secrets we saved before on CirecleCi, terraform will be able to retrieve or generate a states file stored on AWS S3. The states file is used to plan operations on infrastructures depending on what states they are in currently and what we are expecting to get defined in our terraform code. When the plan is approved by DevOps manually, terraform will call AWS API to perform operations. Sounds like a good plan? Let us see key actions we have to take to work this through.</p><h2 id=key-steps>Key Steps</h2><p>First of all, we need to file a terraform project to declare what resources or infrastructures we want. Terraform uses a set of language called HCL to define infrastructures. Here’s a demo bellow but we won’t dive into details this time because it might be a whole new topic. Visit <a href=https://www.terraform.io/language>Terraform official documents</a> for more instructions.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#ff79c6>terraform</span> {
-  <span style=color:#ff79c6>required_providers</span> {
-    aws <span style=color:#ff79c6>=</span> {
-      source  <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;hashicorp/aws&#34;</span>
-      version <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;~&gt; 1.0.4&#34;</span>
-    }
-  }
-}
-
-<span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;aws_region&#34;</span> {}
-
-<span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;base_cidr_block&#34;</span> {
-  description <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;A /16 CIDR range definition, such as 10.1.0.0/16, that the VPC will use&#34;</span>
-  default <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;10.1.0.0/16&#34;</span>
-}
-
-<span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;availability_zones&#34;</span> {
-  description <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;A list of availability zones in which to create subnets&#34;</span>
-  type <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>list</span>(<span style=color:#ff79c6>string</span>)
-}
-
-<span style=color:#ff79c6>provider</span> <span style=color:#f1fa8c>&#34;aws&#34;</span> {
-  region <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>aws_region</span>
-}
-
-<span style=color:#ff79c6>resource</span> <span style=color:#f1fa8c>&#34;aws_vpc&#34; &#34;main&#34;</span> {<span style=color:#6272a4>
-</span><span style=color:#6272a4>  # Referencing the base_cidr_block variable allows the network address
-</span><span style=color:#6272a4>  # to be changed without modifying the configuration.
-</span><span style=color:#6272a4></span>  cidr_block <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>base_cidr_block</span>
-}
-
-<span style=color:#ff79c6>resource</span> <span style=color:#f1fa8c>&#34;aws_subnet&#34; &#34;az&#34;</span> {<span style=color:#6272a4>
-</span><span style=color:#6272a4>  # Create one subnet for each given availability zone.
-</span><span style=color:#6272a4></span>  count <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>length</span>(<span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>availability_zones</span>)<span style=color:#6272a4>
-</span><span style=color:#6272a4>
-</span><span style=color:#6272a4>  # For each subnet, use one of the specified availability zones.
-</span><span style=color:#6272a4></span>  availability_zone <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>availability_zones</span>[<span style=color:#ff79c6>count</span>.<span style=color:#ff79c6>index</span>]<span style=color:#6272a4>
-</span><span style=color:#6272a4>
-</span><span style=color:#6272a4>  # By referencing the aws_vpc.main object, Terraform knows that the subnet
-</span><span style=color:#6272a4>  # must be created only after the VPC is created.
-</span><span style=color:#6272a4></span>  vpc_id <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>aws_vpc</span>.<span style=color:#ff79c6>main</span>.<span style=color:#ff79c6>id</span><span style=color:#6272a4>
-</span><span style=color:#6272a4>
-</span><span style=color:#6272a4>  # Built-in functions and operators can be used for simple transformations of
-</span><span style=color:#6272a4>  # values, such as computing a subnet address. Here we create a /20 prefix for
-</span><span style=color:#6272a4>  # each subnet, using consecutive addresses for each availability zone,
-</span><span style=color:#6272a4>  # such as 10.1.16.0/20 .
-</span><span style=color:#6272a4></span>  cidr_block <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>cidrsubnet</span>(<span style=color:#ff79c6>aws_vpc</span>.<span style=color:#ff79c6>main</span>.<span style=color:#ff79c6>cidr_block</span>, <span style=color:#bd93f9>4</span>, <span style=color:#ff79c6>count</span>.<span style=color:#ff79c6>index</span>+<span style=color:#bd93f9>1</span>)
-}
-</code></pre></td></tr></table></div></div><p>Before submitting this project to git, you may try it with local terraform. But first you have to set up you aws command line tool with aws_access_key_id and aws_secret_access_key</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>aws configure
-</code></pre></td></tr></table></div></div><p>Then try terraform out to see if this code works</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#6272a4># initialize dependencies</span>
-terraform init
-
-<span style=color:#6272a4># validate code</span>
-terraform validate
-
-<span style=color:#6272a4># compare status and make a plan</span>
-terraform plan
-
-<span style=color:#6272a4># apply the plan</span>
-terraform apply
-</code></pre></td></tr></table></div></div><p>Hopefully, your code will work as expected to get VPC, EC2 etc ready for you. If not, make some changes on your code and just run terraform applyagain without worries about what has be left by interrupted actions previously. Since Terraform saves a local state file by default, it will know which step to begin with.</p><p><img src=image-20220812-160334.png alt=states-in-s3></p><p>However it’s not a good choice to save state file in git repository as code because some sensitive information such as usernames and passwords, certificates will be saved in plaintext in state file. Also we can’t just left the state file locally since it’s a important keep the file in a safe place where everyone in the team can also access or we may lost the state of infrastructures and terrafrom apply may end with wrong results.</p><p>Terrafrom supports a few remote service to save its state file, which is known as backend, see <a href=https://www.terraform.io/language/settings/backends/configuration>terraform backend configure docs</a> for more information. We use AWS S3 in this demo and here is how to configure it.</p><p>Create a S3 bucket in you AWS S3 service</p><p><img src=image-20220812-163713.png alt=s3-bucket></p><p>Add backend config in you terraform code block</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=color:#ff79c6>terraform</span> {
-  <span style=color:#ff79c6>backend</span> <span style=color:#f1fa8c>&#34;s3&#34;</span> {
-    bucket <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;my-terraform-statefile&#34;</span>
-    key    <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;path/to/my/key&#34;</span>
-    region <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;us-east-2&#34;</span>
-  }
-}
-</code></pre></td></tr></table></div></div><p>Now you can run you terraform code anywhere with your AWS credentials.</p><p>With remote backend configured, we are able to run terraform on CICD services providers such as CircelCI, TravisCI, Github and so on. We choose CircleCI as demo since it provides us with a terraform Orb that has everything ready to run. Or we can also make our own Docker images that includes terraform, aws command line client and aws-iam-authenticator. Here is an demo pipeline config yaml running terrafrom lifecycle.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#ff79c6>version</span>: <span style=color:#f1fa8c>&#34;2.1&#34;</span>
-<span style=color:#ff79c6>orbs</span>:
-  <span style=color:#ff79c6>terraform</span>: circleci/terraform@3.1
-
-<span style=color:#6272a4># define pipeline parameters, see https://circleci.com/docs/pipeline-variables</span>
-<span style=color:#ff79c6>parameters</span>:
-  <span style=color:#ff79c6>terraform-tag</span>:
-    <span style=color:#ff79c6>type</span>: string
-    <span style=color:#ff79c6>default</span>: <span style=color:#f1fa8c>&#34;1.2.7&#34;</span>
-
-<span style=color:#ff79c6>workflows</span>:
-  <span style=color:#6272a4>####### DEPLOY WORKFLOW #######</span>
-  <span style=color:#ff79c6>deploy_infrastructure</span>:
-    <span style=color:#ff79c6>jobs</span>:
-      - <span style=color:#ff79c6>terraform/fmt</span>:
-          <span style=color:#ff79c6>resource_class</span>: large
-          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
-          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
-      - <span style=color:#ff79c6>terraform/validate</span>:
-          <span style=color:#ff79c6>resource_class</span>: large
-          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
-          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
-          <span style=color:#ff79c6>requires</span>:
-            - terraform/fmt
-      - <span style=color:#ff79c6>terraform/plan</span>:
-          <span style=color:#ff79c6>resource_class</span>: large
-          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
-          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
-          <span style=color:#ff79c6>persist-workspace</span>: <span style=color:#ff79c6>true</span>
-          <span style=color:#ff79c6>requires</span>:
-            - terraform/validate
-      - <span style=color:#ff79c6>hold-apply</span>:
-          <span style=color:#ff79c6>type</span>: approval
-          <span style=color:#ff79c6>requires</span>:
-            - terraform/plan
-      - <span style=color:#ff79c6>terraform/apply</span>:
-          <span style=color:#ff79c6>resource_class</span>: large
-          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
-          <span style=color:#ff79c6>attach-workspace</span>: <span style=color:#ff79c6>true</span>
-          <span style=color:#ff79c6>filters</span>:
-            <span style=color:#ff79c6>branches</span>:
-              <span style=color:#ff79c6>only</span>: master
-          <span style=color:#ff79c6>requires</span>:
-            - hold-apply
-</code></pre></td></tr></table></div></div><p>We add a type: approval job so that the workflow runs the final apply after a manual approval is granted.</p><p>Further more, we have to authorize terraform to access AWS api using our credentials. Terraform honors these environmental variables in its AWS provider.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_ACCESS_KEY_ID</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;anaccesskey&#34;</span>
-<span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_SECRET_ACCESS_KEY</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;asecretkey&#34;</span>
-<span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_REGION</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;us-east-2&#34;</span>
-</code></pre></td></tr></table></div></div><p>Hence we can just add these in CircleCi project settings:</p><p><img src=image-20220812-171244.png alt=AWS-secrects-config-on-CircleCI></p><p>Now we have everything setup. Whenever we push terraform code commits, a pipeline will be triggered to perform state check and operate infrastructures on cloud providers as we defined.</p><p><img src=image-20220812-171721.png alt="workflow on CircleCI"></p><p><img src=image-20220812-171935.png alt="workflow results"></p><h2 id=summary>Summary</h2><p>Thanks to AWS Open API, terraform and CICD service providers, We made it to operate AWS infrastructures automatically by submitting terraform code in git repository. Maybe there are some other ways to do so, Terraform is definitely the road that has been paved with a set of providers and modules, which makes you feel that GitOps seems not so far away.</p><h2 id=reference>Reference</h2><ul><li><a href=https://registry.terraform.io/providers/hashicorp/aws/latest/docs>Terraform AWS Provider Docs</a></li><li><a href=https://circleci.com/developer/orbs/orb/circleci/terraform>CircleCI Terraform Orb Docs</a></li><li><a href=https://docs.aws.amazon.com/>AWS docs</a></li></ul></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
+- <a class=label href=https://leizhilong.github.io/categories/aws/>AWS </a><a class=label href=https://leizhilong.github.io/categories/devops/>DevOps </a><a class=label href=https://leizhilong.github.io/categories/terraform/>Terraform</a></p><h1 class=entry-title>Practicing Infrastructure GitOps using Terraform</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#prerequisite>Prerequisite</a></li><li><a href=#architecture>Architecture</a></li><li><a href=#key-steps>Key Steps</a></li><li><a href=#summary>Summary</a></li><li><a href=#reference>Reference</a></li></ul></nav><h2 id=introduction>Introduction</h2><p>GitOps is an operating model for Kubernetes and other cloud-native technologies that provides a set of best practices that unifies deployment, management, and monitoring for containerized clusters and applications. While terraform is an amazing tool enabling DevOps to operate infrastructure by coding, which is known as <code>IaC(Infrastructure as Code)</code>. What if we combine those two together to make provision of infrastructure is like creating a new class in Java programing? That is what we are going to find out in this article.</p><h2 id=prerequisite>Prerequisite</h2><p>We choose some typical environment options such as AWS as cloud providers and CircieCI as CICD service providers to demonstrate how. However it&rsquo;s definitely possible to get the same result if you have other options. Before we start, here&rsquo;s what to prepare:</p><ul><li>an AWS account with aws_access_key_id and aws_secret_access_key</li><li>CircleCI account and a git repository integrated with it.</li><li>Terraform and aws command line tool installed on your local workstation for testing.</li></ul><h2 id=architecture>Architecture</h2><p>The diagram bellow shows how the operation works generally.</p><p><img src=./gitops.png alt=gitops></p><p>We push our terraform code into a git repository with a CircleCI pipeline project set up to watch our commits. When new commit triggered the CircleCI Pipeline and some conditions we setup before are meet, a special terraform docker container will be launched in a dedicated environment called <code>Orb</code>. With API secrets we saved before on CirecleCi, terraform will be able to retrieve or generate a states file stored on AWS S3. The states file is used to plan operations on infrastructures depending on what states they are in currently and what we are expecting to get defined in our terraform code. When the plan is approved by DevOps manually, terraform will call AWS API to perform operations. Sounds like a good plan? Let us see key actions we have to take to work this through.</p><h2 id=key-steps>Key Steps</h2><p>First of all, we need to file a terraform project to declare what resources or infrastructures we want. Terraform uses a set of language called HCL to define infrastructures. Here’s a demo bellow but we won’t dive into details this time because it might be a whole new topic. Visit <a href=https://www.terraform.io/language>Terraform official documents</a> for more instructions.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#ff79c6>terraform</span> {
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>required_providers</span> {
+</span></span><span style=display:flex><span>    aws <span style=color:#ff79c6>=</span> {
+</span></span><span style=display:flex><span>      source  <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;hashicorp/aws&#34;</span>
+</span></span><span style=display:flex><span>      version <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;~&gt; 1.0.4&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;aws_region&#34;</span> {}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;base_cidr_block&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;A /16 CIDR range definition, such as 10.1.0.0/16, that the VPC will use&#34;</span>
+</span></span><span style=display:flex><span>  default <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;10.1.0.0/16&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>variable</span> <span style=color:#f1fa8c>&#34;availability_zones&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;A list of availability zones in which to create subnets&#34;</span>
+</span></span><span style=display:flex><span>  type <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>list</span>(<span style=color:#ff79c6>string</span>)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>provider</span> <span style=color:#f1fa8c>&#34;aws&#34;</span> {
+</span></span><span style=display:flex><span>  region <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>aws_region</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>resource</span> <span style=color:#f1fa8c>&#34;aws_vpc&#34; &#34;main&#34;</span> {<span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # Referencing the base_cidr_block variable allows the network address
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # to be changed without modifying the configuration.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  cidr_block <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>base_cidr_block</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>resource</span> <span style=color:#f1fa8c>&#34;aws_subnet&#34; &#34;az&#34;</span> {<span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # Create one subnet for each given availability zone.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  count <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>length</span>(<span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>availability_zones</span>)<span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # For each subnet, use one of the specified availability zones.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  availability_zone <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>var</span>.<span style=color:#ff79c6>availability_zones</span>[<span style=color:#ff79c6>count</span>.<span style=color:#ff79c6>index</span>]<span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # By referencing the aws_vpc.main object, Terraform knows that the subnet
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # must be created only after the VPC is created.
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  vpc_id <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>aws_vpc</span>.<span style=color:#ff79c6>main</span>.<span style=color:#ff79c6>id</span><span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # Built-in functions and operators can be used for simple transformations of
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # values, such as computing a subnet address. Here we create a /20 prefix for
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # each subnet, using consecutive addresses for each availability zone,
+</span></span></span><span style=display:flex><span><span style=color:#6272a4>  # such as 10.1.16.0/20 .
+</span></span></span><span style=display:flex><span><span style=color:#6272a4></span>  cidr_block <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>cidrsubnet</span>(<span style=color:#ff79c6>aws_vpc</span>.<span style=color:#ff79c6>main</span>.<span style=color:#ff79c6>cidr_block</span>, <span style=color:#bd93f9>4</span>, <span style=color:#ff79c6>count</span>.<span style=color:#ff79c6>index</span>+<span style=color:#bd93f9>1</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>Before submitting this project to git, you may try it with local terraform. But first you have to set up you aws command line tool with aws_access_key_id and aws_secret_access_key</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>aws configure
+</span></span></code></pre></td></tr></table></div></div><p>Then try terraform out to see if this code works</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#6272a4># initialize dependencies</span>
+</span></span><span style=display:flex><span>terraform init
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># validate code</span>
+</span></span><span style=display:flex><span>terraform validate
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># compare status and make a plan</span>
+</span></span><span style=display:flex><span>terraform plan
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># apply the plan</span>
+</span></span><span style=display:flex><span>terraform apply
+</span></span></code></pre></td></tr></table></div></div><p>Hopefully, your code will work as expected to get VPC, EC2 etc ready for you. If not, make some changes on your code and just run terraform applyagain without worries about what has be left by interrupted actions previously. Since Terraform saves a local state file by default, it will know which step to begin with.</p><p><img src=image-20220812-160334.png alt=states-in-s3></p><p>However it’s not a good choice to save state file in git repository as code because some sensitive information such as usernames and passwords, certificates will be saved in plaintext in state file. Also we can’t just left the state file locally since it’s a important keep the file in a safe place where everyone in the team can also access or we may lost the state of infrastructures and terrafrom apply may end with wrong results.</p><p>Terrafrom supports a few remote service to save its state file, which is known as backend, see <a href=https://www.terraform.io/language/settings/backends/configuration>terraform backend configure docs</a> for more information. We use AWS S3 in this demo and here is how to configure it.</p><p>Create a S3 bucket in you AWS S3 service</p><p><img src=image-20220812-163713.png alt=s3-bucket></p><p>Add backend config in you terraform code block</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#ff79c6>terraform</span> {
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>backend</span> <span style=color:#f1fa8c>&#34;s3&#34;</span> {
+</span></span><span style=display:flex><span>    bucket <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;my-terraform-statefile&#34;</span>
+</span></span><span style=display:flex><span>    key    <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;path/to/my/key&#34;</span>
+</span></span><span style=display:flex><span>    region <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;us-east-2&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><p>Now you can run you terraform code anywhere with your AWS credentials.</p><p>With remote backend configured, we are able to run terraform on CICD services providers such as CircelCI, TravisCI, Github and so on. We choose CircleCI as demo since it provides us with a terraform Orb that has everything ready to run. Or we can also make our own Docker images that includes terraform, aws command line client and aws-iam-authenticator. Here is an demo pipeline config yaml running terrafrom lifecycle.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#ff79c6>version</span>: <span style=color:#f1fa8c>&#34;2.1&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>orbs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>terraform</span>: circleci/terraform@3.1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># define pipeline parameters, see https://circleci.com/docs/pipeline-variables</span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>parameters</span>:
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>terraform-tag</span>:
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>type</span>: string
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>default</span>: <span style=color:#f1fa8c>&#34;1.2.7&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff79c6>workflows</span>:
+</span></span><span style=display:flex><span>  <span style=color:#6272a4>####### DEPLOY WORKFLOW #######</span>
+</span></span><span style=display:flex><span>  <span style=color:#ff79c6>deploy_infrastructure</span>:
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>jobs</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ff79c6>terraform/fmt</span>:
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>resource_class</span>: large
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ff79c6>terraform/validate</span>:
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>resource_class</span>: large
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>requires</span>:
+</span></span><span style=display:flex><span>            - terraform/fmt
+</span></span><span style=display:flex><span>      - <span style=color:#ff79c6>terraform/plan</span>:
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>resource_class</span>: large
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>checkout</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>persist-workspace</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>requires</span>:
+</span></span><span style=display:flex><span>            - terraform/validate
+</span></span><span style=display:flex><span>      - <span style=color:#ff79c6>hold-apply</span>:
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>type</span>: approval
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>requires</span>:
+</span></span><span style=display:flex><span>            - terraform/plan
+</span></span><span style=display:flex><span>      - <span style=color:#ff79c6>terraform/apply</span>:
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>resource_class</span>: large
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>tag</span>: &lt;&lt; pipeline.parameters.terraform-tag &gt;&gt;
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>attach-workspace</span>: <span style=color:#ff79c6>true</span>
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>filters</span>:
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>branches</span>:
+</span></span><span style=display:flex><span>              <span style=color:#ff79c6>only</span>: master
+</span></span><span style=display:flex><span>          <span style=color:#ff79c6>requires</span>:
+</span></span><span style=display:flex><span>            - hold-apply
+</span></span></code></pre></td></tr></table></div></div><p>We add a type: approval job so that the workflow runs the final apply after a manual approval is granted.</p><p>Further more, we have to authorize terraform to access AWS api using our credentials. Terraform honors these environmental variables in its AWS provider.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_ACCESS_KEY_ID</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;anaccesskey&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_SECRET_ACCESS_KEY</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;asecretkey&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>export</span> <span style=color:#8be9fd;font-style:italic>AWS_REGION</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;us-east-2&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Hence we can just add these in CircleCi project settings:</p><p><img src=image-20220812-171244.png alt=AWS-secrects-config-on-CircleCI></p><p>Now we have everything setup. Whenever we push terraform code commits, a pipeline will be triggered to perform state check and operate infrastructures on cloud providers as we defined.</p><p><img src=image-20220812-171721.png alt="workflow on CircleCI"></p><p><img src=image-20220812-171935.png alt="workflow results"></p><h2 id=summary>Summary</h2><p>Thanks to AWS Open API, terraform and CICD service providers, We made it to operate AWS infrastructures automatically by submitting terraform code in git repository. Maybe there are some other ways to do so, Terraform is definitely the road that has been paved with a set of providers and modules, which makes you feel that GitOps seems not so far away.</p><h2 id=reference>Reference</h2><ul><li><a href=https://registry.terraform.io/providers/hashicorp/aws/latest/docs>Terraform AWS Provider Docs</a></li><li><a href=https://circleci.com/developer/orbs/orb/circleci/terraform>CircleCI Terraform Orb Docs</a></li><li><a href=https://docs.aws.amazon.com/>AWS docs</a></li></ul></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
 <time>Aug 13, 2022</time>
 <span class=categories>Tags:
-<a class=category href=https://leizhilong.github.io/tags/terraform>Terraform</a> <a class=category href=https://leizhilong.github.io/tags/gitops>GitOps</a> <a class=category href=https://leizhilong.github.io/tags/iac>IaC</a></span></p><p class=meta><a class="basic-alignment left" href=https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/ title="Why Swap should be disabled on Kubernetes">Why Swap should be disabled on Kubernetes</a></p><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")
-return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='leizhilong';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></footer></article></div><aside class="sidebar thirds"><section class="first odd"><h1>About the Author</h1><p><p>A code lover,
+<a class=category href=https://leizhilong.github.io/tags/terraform>Terraform</a> <a class=category href=https://leizhilong.github.io/tags/gitops>GitOps</a> <a class=category href=https://leizhilong.github.io/tags/iac>IaC</a></span></p><p class=meta><a class="basic-alignment left" href=https://leizhilong.github.io/post/why-swap-should-be-disabled-on-kubernetes/ title="Why Swap should be disabled on Kubernetes">Why Swap should be disabled on Kubernetes</a></p><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var t,e=document.createElement("script");e.type="text/javascript",e.async=!0,t="leizhilong",e.src="//"+t+".disqus.com/embed.js",(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(e)})()</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></footer></article></div><aside class="sidebar thirds"><section class="first odd"><h1>About the Author</h1><p><p>A code lover,
 a day dreamer,
 a faithful conversation terminator,
 a passionate mosquito smasher,
@@ -248,5 +241,7 @@ a humble weight scale cheater,
 the rightful heir to the sacred throne of wok bearer and the happiest father ever in the Seven Kingdoms.</p><p>Hi, there!
 I am a programmer and tech enthusiasist focusing on technology about Kubernetes, Linux Containers, DevOps, Mobile App back-end service (Java) and Golang application development.
 Currently I&rsquo;m based in the city of greater Vancouver, BC.
-Here I keep my notes and thoughts about things I&rsquo;m interested in. Wanna know more about me, click on <a href=/about/>About Me</a> or contact me via <a href=https://twitter.com/leizhilong>Twitter</a>.</p></p></section><ul class=sidebar-nav><li class=sidebar-nav-item><a target=_blank href=https://github.com/leizhilong/ title=https://github.com/leizhilong/><i class="fa fa-github fa-3x"></i></a><a target=_blank href=https://twitter.com/leizhilong/ title=https://twitter.com/leizhilong/><i class="fa fa-twitter fa-3x"></i></a><a target=_blank href=https://www.linkedin.com/in/leizhilong/ title=https://www.linkedin.com/in/leizhilong/><i class="fa fa-linkedin fa-3x"></i></a></li></ul><section class=odd><h1>Categories</h1><li><a href=https://leizhilong.github.io/categories/go/ title=Golang>Golang</a></li><li><a href=https://leizhilong.github.io/categories/kubernetes/ title=Kubernetes>Kubernetes</a></li><li><a href=https://leizhilong.github.io/categories/container/ title=Container>Container</a></li><li><a href=https://leizhilong.github.io/categories/linux/ title=Linux>Linux</a></li><li><a href=https://leizhilong.github.io/categories/frontend/ title=Frontend>Frontend</a></li></section><section class=even><h1>Recent Posts</h1><ul id=recent_posts><li class=post><a href=/post/terraform-gitops/>Practicing Infrastructure GitOps using Terraform</a></li></ul></section></aside></div></div><footer role=contentinfo><p>Copyright &copy; 2022 leizhilong - <a href=https://leizhilong.github.io/license/>License</a> -
+Here I keep my notes and thoughts about things I&rsquo;m interested in. Wanna know more about me, click on <a href=/about/>About Me</a> or contact me via <a href=https://twitter.com/leizhilong>Twitter</a>.</p></p></section><ul class=sidebar-nav><li class=sidebar-nav-item><a target=_blank href=https://github.com/leizhilong/ title=https://github.com/leizhilong/><i class="fa fa-github fa-3x"></i></a>
+<a target=_blank href=https://twitter.com/leizhilong/ title=https://twitter.com/leizhilong/><i class="fa fa-twitter fa-3x"></i></a>
+<a target=_blank href=https://www.linkedin.com/in/leizhilong/ title=https://www.linkedin.com/in/leizhilong/><i class="fa fa-linkedin fa-3x"></i></a></li></ul><section class=odd><h1>Categories</h1><li><a href=https://leizhilong.github.io/categories/go/ title=Golang>Golang</a></li><li><a href=https://leizhilong.github.io/categories/kubernetes/ title=Kubernetes>Kubernetes</a></li><li><a href=https://leizhilong.github.io/categories/container/ title=Container>Container</a></li><li><a href=https://leizhilong.github.io/categories/linux/ title=Linux>Linux</a></li><li><a href=https://leizhilong.github.io/categories/frontend/ title=Frontend>Frontend</a></li></section><section class=even><h1>Recent Posts</h1><ul id=recent_posts><li class=post><a href=/post/terraform-gitops/>Practicing Infrastructure GitOps using Terraform</a></li></ul></section></aside></div></div><footer role=contentinfo><p>Copyright &copy; 2022 leizhilong - <a href=https://leizhilong.github.io/license/>License</a> -
 <span class=credit>Powered by <a target=_blank href=https://gohugo.io>Hugo</a> and <a target=_blank href=https://github.com/parsiya/hugo-octopress/>Hugo-Octopress</a> theme.</p></footer></body></html>

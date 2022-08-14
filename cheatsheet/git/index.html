@@ -1,188 +1,174 @@
-<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1"><title>Git</title><link rel=stylesheet href=/css/hugo-octopress.css><link rel=stylesheet href=/css/fork-awesome.min.css><link href=https://leizhilong.github.io/favicon.png rel=icon><meta name=description content><meta name=keywords content="[Lei Zhilong leizhilong kubernetes linux container golang mobile app back-end service blog]"><meta name=author content="leizhilong"><meta name=generator content="Hugo 0.75.1"><meta name=twitter:card content="summary"><meta name=twitter:title content="Git"><meta name=twitter:description content="I. Git Submodule 1. Delete a submodule 1 2 3 4 5 6 7 8 9 10 11  git submodule deinit {MOD_PATH} # delete mod info from .gitmodules cat .gitmodules | gre -v {MOD_PATH} > .gitmodules # use --cached to clear info in .git/modules git rm --cached {MOD_PATH} git commit -am &#34;Remove a submodule.&#34;   2. Modify submodule URL 1 2 3 4 5 6 7 8 9 10 11  # 1."><meta name=twitter:domain content="leizhilong"><meta name=twitter:creator content="@leizhilong"></head><body><header role=banner><hgroup><h1><a href=https://leizhilong.github.io/>Lei Zhilong</a></h1><h2>The best way to input is to output</h2></hgroup></header><nav role=navigation><fieldset class=mobile-nav><select onchange="location=this.value;">
-<option value>Navigate…</option>
-<option value=https://leizhilong.github.io/post/>» Posts</option>
-<option value=https://leizhilong.github.io/categories/>» Categories</option>
-<option value=https://leizhilong.github.io/tags/>» Tags</option>
-<option value=https://leizhilong.github.io/cheatsheet/>» CheatSheets</option>
-<option value=https://leizhilong.github.io/about/>» About Me</option></select></fieldset><ul class=main-navigation><li><a href=https://leizhilong.github.io/post/ title=Posts>Posts</a></li><li><a href=https://leizhilong.github.io/categories/ title=Categories>Categories</a></li><li><a href=https://leizhilong.github.io/tags/ title=Tags>Tags</a></li><li><a href=https://leizhilong.github.io/cheatsheet/ title=CheatSheets>CheatSheets</a></li><li><a href=https://leizhilong.github.io/about/ title="About Me">About Me</a></li></ul><ul class=subscription><a href=https://leizhilong.github.io/index.xml target=_blank type=application/rss+xml title=RSS><i class="fa fa-rss-square fa-lg"></i></a></ul><form action=https://www.google.com/search method=get target=_blank><fieldset role=search><input class=search type=text name=q results=0 placeholder=Search>
+<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1"><title>Git</title><link rel=stylesheet href=/css/hugo-octopress.css><link rel=stylesheet href=/css/fork-awesome.min.css><link href=https://leizhilong.github.io/favicon.png rel=icon><meta name=description content><meta name=keywords content="[Lei Zhilong leizhilong kubernetes linux container golang mobile app back-end service blog]"><meta name=author content="leizhilong"><meta name=generator content="Hugo 0.101.0"><meta name=twitter:card content="summary"><meta name=twitter:title content="Git"><meta name=twitter:description content="I. Git Submodule 1. Delete a submodule 1 2 3 4 5 6 7 8 9 10 git submodule deinit {MOD_PATH} # delete mod info from .gitmodules cat .gitmodules | gre -v {MOD_PATH} > .gitmodules # use --cached to clear info in .git/modules git rm --cached {MOD_PATH} git commit -am &#34;Remove a submodule.&#34; 2. Modify submodule URL 1 2 3 4 5 6 7 8 9 10 # 1. modify submodule url in ."><meta name=twitter:domain content="leizhilong"><meta name=twitter:creator content="@leizhilong"></head><body><header role=banner><hgroup><h1><a href=https://leizhilong.github.io/>Lei Zhilong</a></h1><h2>The best way to input is to output</h2></hgroup></header><nav role=navigation><fieldset class=mobile-nav><select onchange="location=this.value"><option value>Navigate…</option><option value=https://leizhilong.github.io/post/>» Posts</option><option value=https://leizhilong.github.io/categories/>» Categories</option><option value=https://leizhilong.github.io/tags/>» Tags</option><option value=https://leizhilong.github.io/cheatsheet/>» CheatSheets</option><option value=https://leizhilong.github.io/about/>» About Me</option></select></fieldset><ul class=main-navigation><li><a href=https://leizhilong.github.io/post/ title=Posts>Posts</a></li><li><a href=https://leizhilong.github.io/categories/ title=Categories>Categories</a></li><li><a href=https://leizhilong.github.io/tags/ title=Tags>Tags</a></li><li><a href=https://leizhilong.github.io/cheatsheet/ title=CheatSheets>CheatSheets</a></li><li><a href=https://leizhilong.github.io/about/ title="About Me">About Me</a></li></ul><ul class=subscription><a href=https://leizhilong.github.io/index.xml target=_blank type=application/rss+xml title=RSS><i class="fa fa-rss-square fa-lg"></i></a></ul><form action=https://www.google.com/search method=get target=_blank><fieldset role=search><input class=search type=text name=q results=0 placeholder=Search>
 <input type=hidden name=q value=site:https://leizhilong.github.io/></fieldset></form></nav><div id=main><div id=content><div><article class=hentry role=article><header><p class=meta>Jul 20, 2020
 - 3 minute read
 - <a href=https://leizhilong.github.io/cheatsheet/git/#disqus_thread>Comments</a>
-- <a class=label href=https://leizhilong.github.io/categories/cheat-sheets/>Cheat Sheets</a></p><h1 class=entry-title>Git</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#i-git-submodule>I. Git Submodule</a><ul><li><a href=#1-delete-a-submodule>1. Delete a submodule</a></li><li><a href=#2-modify-submodule-url>2. Modify submodule URL</a></li></ul></li><li><a href=#ii-git-add-options-a---u>II. Git ADD options(<code>-A</code>, <code>.</code>, <code>-u</code>)</a></li><li><a href=#iii-mirror>III. Mirror</a></li><li><a href=#iv-revert>IV. Revert</a><ul><li><a href=#1-revert-multiple-commits>1. Revert multiple commits</a></li></ul></li><li><a href=#v-push>V. Push</a><ul><li><a href=#1-push-to-multiple-remote-repositories-simultaneously>1. Push to multiple remote repositories simultaneously</a></li></ul></li></ul></nav><h2 id=i-git-submodule>I. Git Submodule</h2><h3 id=1-delete-a-submodule>1. Delete a submodule</h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>
-git submodule deinit <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span>
-
-<span style=color:#6272a4># delete mod info from .gitmodules</span>
-cat .gitmodules | gre -v <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span> &gt; .gitmodules
-
-<span style=color:#6272a4># use --cached to clear info in .git/modules</span>
-git rm --cached <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span>
-
-git commit -am <span style=color:#f1fa8c>&#34;Remove a submodule.&#34;</span>
-
-</code></pre></td></tr></table></div></div><h3 id=2-modify-submodule-url>2. Modify submodule URL</h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>
-<span style=color:#6272a4># 1. modify submodule url in .gitmodules</span>
-vim .gitmodules
-
-<span style=color:#6272a4># 2. use `git submodule sync` to flush URL into  .git/config</span>
-git submodule sync
-cat .git/config
-
-<span style=color:#6272a4># 3. commit change</span>
-git commit -am <span style=color:#f1fa8c>&#34;Update submodule url.&#34;</span>
-
-</code></pre></td></tr></table></div></div><h2 id=ii-git-add-options-a---u>II. Git ADD options(<code>-A</code>, <code>.</code>, <code>-u</code>)</h2><ul><li><code>git add -A</code> - add all file changes, including updating, adding and deleting.</li><li><code>git add -u</code> - add changes of indexed files, including updating and deleting.</li><li><code>git add .</code> - add changes of files in current working directory, including adding, updating but excluding missing files.</li></ul><p>Example:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>
-git init
-<span style=color:#8be9fd;font-style:italic>echo</span> Change me &gt; change-me
-<span style=color:#8be9fd;font-style:italic>echo</span> Delete me &gt; delete-me
-git add change-me delete-me
-git commit -m initial
-
-<span style=color:#8be9fd;font-style:italic>echo</span> OK &gt;&gt; change-me
-rm delete-me
-<span style=color:#8be9fd;font-style:italic>echo</span> Add me &gt; add-me
-
-git status
-<span style=color:#6272a4># Changed but not updated:</span>
-<span style=color:#6272a4>#   modified:   change-me</span>
-<span style=color:#6272a4>#   deleted:    delete-me</span>
-<span style=color:#6272a4># Untracked files:</span>
-<span style=color:#6272a4>#   add-me</span>
-
-git add .
-git status
-
-<span style=color:#6272a4># Changes to be committed:</span>
-<span style=color:#6272a4>#   new file:   add-me</span>
-<span style=color:#6272a4>#   modified:   change-me</span>
-<span style=color:#6272a4># Changed but not updated:</span>
-<span style=color:#6272a4>#   deleted:    delete-me</span>
-
-git reset
-
-git add -u
-git status
-
-<span style=color:#6272a4># Changes to be committed:</span>
-<span style=color:#6272a4>#   modified:   change-me</span>
-<span style=color:#6272a4>#   deleted:    delete-me</span>
-<span style=color:#6272a4># Untracked files:</span>
-<span style=color:#6272a4>#   add-me</span>
-
-git reset
-
-git add -A
-git status
-
-<span style=color:#6272a4># Changes to be committed:</span>
-<span style=color:#6272a4>#   new file:   add-me</span>
-<span style=color:#6272a4>#   modified:   change-me</span>
-<span style=color:#6272a4>#   deleted:    delete-me</span>
-
-</code></pre></td></tr></table></div></div><h2 id=iii-mirror>III. Mirror</h2><p>Thanks to some great firewalls, you may need to use a mirror site to access github.com.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git config --global url.<span style=color:#f1fa8c>&#34;https://github.com.cnpmjs.org/&#34;</span>.insteadOf https://github.com/
-</code></pre></td></tr></table></div></div><h2 id=iv-revert>IV. Revert</h2><h3 id=1-revert-multiple-commits>1. Revert multiple commits</h3><p>Suppose you have a commit chain like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>A -&gt; B -&gt; C -&gt; D
-</code></pre></td></tr></table></div></div><p>And you&rsquo;d like to revert B to D to get a result like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>A-&gt; B -&gt;C -&gt; D -&gt; D<span style=color:#f1fa8c>&#39;-&gt; C&#39;</span> -&gt; B&#39;
-</code></pre></td></tr></table></div></div><p>This is the way:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git revert B^..D
-</code></pre></td></tr></table></div></div><p>And if you wanna combine the reverts in one commit:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git revert -n B^..D
-git commit -m <span style=color:#f1fa8c>&#34;revert from B to D&#34;</span>
-</code></pre></td></tr></table></div></div><h2 id=v-push>V. Push</h2><h3 id=1-push-to-multiple-remote-repositories-simultaneously>1. Push to multiple remote repositories simultaneously</h3><p>First, add a URL to you existing remote. Yes, a repository can have multiple remote URL!</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>
-git remote set-url --add origin git@gitlab.com:fakeuser/my-repo.git
-
-git remote -v
-
-origin	git@github.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>fetch<span style=color:#ff79c6>)</span>
-origin	git@github.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>push<span style=color:#ff79c6>)</span>
-origin	git@gitlab.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>push<span style=color:#ff79c6>)</span>
-
-</code></pre></td></tr></table></div></div><p>Then when you push with <code>git push origin master</code>, you&rsquo;ll get two results:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Everything up-to-date
-Everything up-to-date
-</code></pre></td></tr></table></div></div></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
+- <a class=label href=https://leizhilong.github.io/categories/cheat-sheets/>Cheat Sheets</a></p><h1 class=entry-title>Git</h1></header><div class=entry-content><nav id=TableOfContents><ul><li><a href=#i-git-submodule>I. Git Submodule</a><ul><li><a href=#1-delete-a-submodule>1. Delete a submodule</a></li><li><a href=#2-modify-submodule-url>2. Modify submodule URL</a></li></ul></li><li><a href=#ii-git-add-options-a---u>II. Git ADD options(<code>-A</code>, <code>.</code>, <code>-u</code>)</a></li><li><a href=#iii-mirror>III. Mirror</a></li><li><a href=#iv-revert>IV. Revert</a><ul><li><a href=#1-revert-multiple-commits>1. Revert multiple commits</a></li></ul></li><li><a href=#v-push>V. Push</a><ul><li><a href=#1-push-to-multiple-remote-repositories-simultaneously>1. Push to multiple remote repositories simultaneously</a></li></ul></li></ul></nav><h2 id=i-git-submodule>I. Git Submodule</h2><h3 id=1-delete-a-submodule>1. Delete a submodule</h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span>git submodule deinit <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># delete mod info from .gitmodules</span>
+</span></span><span style=display:flex><span>cat .gitmodules | gre -v <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span> &gt; .gitmodules
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># use --cached to clear info in .git/modules</span>
+</span></span><span style=display:flex><span>git rm --cached <span style=color:#ff79c6>{</span>MOD_PATH<span style=color:#ff79c6>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git commit -am <span style=color:#f1fa8c>&#34;Remove a submodule.&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-modify-submodule-url>2. Modify submodule URL</h3><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 1. modify submodule url in .gitmodules</span>
+</span></span><span style=display:flex><span>vim .gitmodules
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 2. use `git submodule sync` to flush URL into  .git/config</span>
+</span></span><span style=display:flex><span>git submodule sync
+</span></span><span style=display:flex><span>cat .git/config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 3. commit change</span>
+</span></span><span style=display:flex><span>git commit -am <span style=color:#f1fa8c>&#34;Update submodule url.&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=ii-git-add-options-a---u>II. Git ADD options(<code>-A</code>, <code>.</code>, <code>-u</code>)</h2><ul><li><code>git add -A</code> - add all file changes, including updating, adding and deleting.</li><li><code>git add -u</code> - add changes of indexed files, including updating and deleting.</li><li><code>git add .</code> - add changes of files in current working directory, including adding, updating but excluding missing files.</li></ul><p>Example:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span>git init
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>echo</span> Change me &gt; change-me
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>echo</span> Delete me &gt; delete-me
+</span></span><span style=display:flex><span>git add change-me delete-me
+</span></span><span style=display:flex><span>git commit -m initial
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>echo</span> OK &gt;&gt; change-me
+</span></span><span style=display:flex><span>rm delete-me
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>echo</span> Add me &gt; add-me
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git status
+</span></span><span style=display:flex><span><span style=color:#6272a4># Changed but not updated:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   modified:   change-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   deleted:    delete-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Untracked files:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   add-me</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git add .
+</span></span><span style=display:flex><span>git status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Changes to be committed:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   new file:   add-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   modified:   change-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Changed but not updated:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   deleted:    delete-me</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git reset
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git add -u
+</span></span><span style=display:flex><span>git status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Changes to be committed:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   modified:   change-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   deleted:    delete-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Untracked files:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   add-me</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git reset
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git add -A
+</span></span><span style=display:flex><span>git status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Changes to be committed:</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   new file:   add-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   modified:   change-me</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4>#   deleted:    delete-me</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=iii-mirror>III. Mirror</h2><p>Thanks to some great firewalls, you may need to use a mirror site to access github.com.</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git config --global url.<span style=color:#f1fa8c>&#34;https://github.com.cnpmjs.org/&#34;</span>.insteadOf https://github.com/
+</span></span></code></pre></td></tr></table></div></div><h2 id=iv-revert>IV. Revert</h2><h3 id=1-revert-multiple-commits>1. Revert multiple commits</h3><p>Suppose you have a commit chain like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>A -&gt; B -&gt; C -&gt; D
+</span></span></code></pre></td></tr></table></div></div><p>And you&rsquo;d like to revert B to D to get a result like:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>A-&gt; B -&gt;C -&gt; D -&gt; D<span style=color:#f1fa8c>&#39;-&gt; C&#39;</span> -&gt; B&#39;
+</span></span></code></pre></td></tr></table></div></div><p>This is the way:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git revert B^..D
+</span></span></code></pre></td></tr></table></div></div><p>And if you wanna combine the reverts in one commit:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git revert -n B^..D
+</span></span><span style=display:flex><span>git commit -m <span style=color:#f1fa8c>&#34;revert from B to D&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=v-push>V. Push</h2><h3 id=1-push-to-multiple-remote-repositories-simultaneously>1. Push to multiple remote repositories simultaneously</h3><p>First, add a URL to you existing remote. Yes, a repository can have multiple remote URL!</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span>git remote set-url --add origin git@gitlab.com:fakeuser/my-repo.git
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>git remote -v
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>origin	git@github.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>fetch<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>origin	git@github.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>push<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>origin	git@gitlab.com:fakeuser/my-repo.git <span style=color:#ff79c6>(</span>push<span style=color:#ff79c6>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>Then when you push with <code>git push origin master</code>, you&rsquo;ll get two results:</p><div class=highlight><div style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Everything up-to-date
+</span></span><span style=display:flex><span>Everything up-to-date
+</span></span></code></pre></td></tr></table></div></div></div><footer><p class=meta><span class="byline author vcard">Posted by <span class=fn>leizhilong</span></span>
 <time>Jul 20, 2020</time>
 <span class=categories>Tags:
 <a class=category href=https://leizhilong.github.io/tags/git>Git</a></span></p><p class=meta><a class="basic-alignment left" href=https://leizhilong.github.io/cheatsheet/docker/ title=Docker>Docker</a>
@@ -194,5 +180,7 @@ a humble weight scale cheater,
 the rightful heir to the sacred throne of wok bearer and the happiest father ever in the Seven Kingdoms.</p><p>Hi, there!
 I am a programmer and tech enthusiasist focusing on technology about Kubernetes, Linux Containers, DevOps, Mobile App back-end service (Java) and Golang application development.
 Currently I&rsquo;m based in the city of greater Vancouver, BC.
-Here I keep my notes and thoughts about things I&rsquo;m interested in. Wanna know more about me, click on <a href=/about/>About Me</a> or contact me via <a href=https://twitter.com/leizhilong>Twitter</a>.</p></p></section><ul class=sidebar-nav><li class=sidebar-nav-item><a target=_blank href=https://github.com/leizhilong/ title=https://github.com/leizhilong/><i class="fa fa-github fa-3x"></i></a><a target=_blank href=https://twitter.com/leizhilong/ title=https://twitter.com/leizhilong/><i class="fa fa-twitter fa-3x"></i></a><a target=_blank href=https://www.linkedin.com/in/leizhilong/ title=https://www.linkedin.com/in/leizhilong/><i class="fa fa-linkedin fa-3x"></i></a></li></ul><section class=odd><h1>Categories</h1><li><a href=https://leizhilong.github.io/categories/go/ title=Golang>Golang</a></li><li><a href=https://leizhilong.github.io/categories/kubernetes/ title=Kubernetes>Kubernetes</a></li><li><a href=https://leizhilong.github.io/categories/container/ title=Container>Container</a></li><li><a href=https://leizhilong.github.io/categories/linux/ title=Linux>Linux</a></li><li><a href=https://leizhilong.github.io/categories/frontend/ title=Frontend>Frontend</a></li></section><section class=even><h1>Recent Posts</h1><ul id=recent_posts><li class=post><a href=/post/terraform-gitops/>Practicing Infrastructure GitOps using Terraform</a></li></ul></section></aside></div></div><footer role=contentinfo><p>Copyright &copy; 2022 leizhilong - <a href=https://leizhilong.github.io/license/>License</a> -
+Here I keep my notes and thoughts about things I&rsquo;m interested in. Wanna know more about me, click on <a href=/about/>About Me</a> or contact me via <a href=https://twitter.com/leizhilong>Twitter</a>.</p></p></section><ul class=sidebar-nav><li class=sidebar-nav-item><a target=_blank href=https://github.com/leizhilong/ title=https://github.com/leizhilong/><i class="fa fa-github fa-3x"></i></a>
+<a target=_blank href=https://twitter.com/leizhilong/ title=https://twitter.com/leizhilong/><i class="fa fa-twitter fa-3x"></i></a>
+<a target=_blank href=https://www.linkedin.com/in/leizhilong/ title=https://www.linkedin.com/in/leizhilong/><i class="fa fa-linkedin fa-3x"></i></a></li></ul><section class=odd><h1>Categories</h1><li><a href=https://leizhilong.github.io/categories/go/ title=Golang>Golang</a></li><li><a href=https://leizhilong.github.io/categories/kubernetes/ title=Kubernetes>Kubernetes</a></li><li><a href=https://leizhilong.github.io/categories/container/ title=Container>Container</a></li><li><a href=https://leizhilong.github.io/categories/linux/ title=Linux>Linux</a></li><li><a href=https://leizhilong.github.io/categories/frontend/ title=Frontend>Frontend</a></li></section><section class=even><h1>Recent Posts</h1><ul id=recent_posts><li class=post><a href=/post/terraform-gitops/>Practicing Infrastructure GitOps using Terraform</a></li></ul></section></aside></div></div><footer role=contentinfo><p>Copyright &copy; 2022 leizhilong - <a href=https://leizhilong.github.io/license/>License</a> -
 <span class=credit>Powered by <a target=_blank href=https://gohugo.io>Hugo</a> and <a target=_blank href=https://github.com/parsiya/hugo-octopress/>Hugo-Octopress</a> theme.</p></footer></body></html>
